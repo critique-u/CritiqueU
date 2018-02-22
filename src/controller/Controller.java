@@ -257,6 +257,8 @@ public class Controller extends HttpServlet {
 					}
 					
 					//invalidate the session
+					request.setAttribute("email", null);
+					mySession.setAttribute("email", null);
 					mySession.invalidate();
 					request.getRequestDispatcher("/home.jsp").forward(request, response);
 				}
