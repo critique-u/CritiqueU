@@ -9,7 +9,6 @@
 				
 				<span class="contact2-form-title" style="padding-bottom: 50px !important; font-size: 24px !important; font-family: Poppins-Regular !important;">
 						<img src="${pageContext.request.contextPath}/images/critique-u-vector-serif.svg" height="80px" style="margin-bottom: 40px;"/>
-						<p>[Image carousel goes here]</p><br/>
 						<p>
 							<a href="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=createaccount") %>">
 								Sign Up
