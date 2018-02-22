@@ -121,6 +121,8 @@ public class Controller extends HttpServlet {
 					return;
 				}
 				
+				HttpSession mySession = request.getSession();
+				
 				Connection conn = null;
 				
 				try
@@ -141,6 +143,8 @@ public class Controller extends HttpServlet {
 					
 					User user = new User(email, password);
 					
+					//set these request attributes. In case of login failure, they will
+						//autopopulate in the form for a retry (empty string password is intended)
 					request.setAttribute("email", email);
 					request.setAttribute("password", "");
 					
@@ -150,7 +154,7 @@ public class Controller extends HttpServlet {
 						{
 							//set the User bean as a session variable
 							// get the session object
-							HttpSession mySession = request.getSession();
+							mySession = request.getSession();
 							
 							String emailTemp = (String) mySession.getAttribute("email");
 							
@@ -158,6 +162,7 @@ public class Controller extends HttpServlet {
 								emailTemp = email;
 							
 							mySession.setAttribute("email", email);
+							mySession.setAttribute("loggedin", "true");
 							request.getRequestDispatcher("/loginsuccess.jsp").forward(request, response);
 						}
 						else
@@ -223,7 +228,7 @@ public class Controller extends HttpServlet {
 									
 									//set the user's email as a session variable
 									// get the session object
-									HttpSession mySession = request.getSession();
+									mySession = request.getSession();
 									
 									String emailTemp = (String) mySession.getAttribute("email");
 									
@@ -241,9 +246,29 @@ public class Controller extends HttpServlet {
 						}
 					}
 				}
+				else if(action.equals("logout"))
+				{
+					out.println("jquery logout button worked");
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					//invalidate the session
+					mySession.invalidate();
+					request.getRequestDispatcher("/home.jsp").forward(request, response);
+				}
 				else
 				{
 					out.println("unrecognized action");
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					return;
 				}
 	}

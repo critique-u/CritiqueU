@@ -38,6 +38,9 @@ public class Account
 			count = rs.getInt("count"); //using the named label of the result. Ordered integers can also be used
 		
 		rs.close();
+		statement.close();
+		conn.close();
+		
 		
 		if(count == 0)
 			return false;
@@ -57,6 +60,7 @@ public class Account
 		statement.executeUpdate();
 		
 		statement.close();
+		conn.close();
 	}
 	
 	public boolean exists(String email) throws SQLException
@@ -79,6 +83,8 @@ public class Account
 		}
 		
 		rs.close();
+		statement.close();
+		conn.close();
 		
 		if(count == 0)
 			return false;
