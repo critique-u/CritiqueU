@@ -6,7 +6,7 @@
 
 <%-- "ds" var is a name that we can just make up to use --%>
 <sql:setDataSource var="ds" dataSource="jdbc/critiqueudb" />
-<sql:query dataSource="${ds}" sql="select * from artwork limit 10;" var="results" />
+<sql:query dataSource="${ds}" sql="select * from artwork where email='jasmine@email.com' limit 10;" var="results" />
 
 	<div class="bg-contact2" style="background-image: url('${pageContext.request.contextPath}/images/bg-02.jpg');">
 		<div class="container-contact2">
@@ -16,41 +16,15 @@
 						<img src="${pageContext.request.contextPath}/images/critique-u-vector-serif.svg" height="80px" style="margin-bottom: 40px;"/>		
 				</span>
 				
+				
+				
+				
 				<c:forEach var="image" items="${results.rows}">
 					<p>
 						${image.title} by ${image.email}
 					</p>
 				</c:forEach>
-				<c:forEach var="image" items="${results.rows}">
-					<p>
-						${image.title} by ${image.email}
-					</p>
-				</c:forEach>
-				<c:forEach var="image" items="${results.rows}">
-					<p>
-						${image.title} by ${image.email}
-					</p>
-				</c:forEach>
-				<c:forEach var="image" items="${results.rows}">
-					<p>
-						${image.title} by ${image.email}
-					</p>
-				</c:forEach>
-				<c:forEach var="image" items="${results.rows}">
-					<p>
-						${image.title} by ${image.email}
-					</p>
-				</c:forEach>
-				<c:forEach var="image" items="${results.rows}">
-					<p>
-						${image.title} by ${image.email}
-					</p>
-				</c:forEach>
-				<c:forEach var="image" items="${results.rows}">
-					<p>
-						${image.title} by ${image.email}
-					</p>
-				</c:forEach>
+				
 				
 				
 				

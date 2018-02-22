@@ -9,7 +9,7 @@
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
@@ -28,7 +28,16 @@
 		color: red;
 		text-align: center;
 	}
+	.affix
+	{
+     	top: 0;
+		width: 100%;
+		z-index: 9999 !important;
+  	}
 
+  	.affix + .container-fluid {
+      	padding-top: 70px;
+  	}
 </style>
 </head>
 <body>
