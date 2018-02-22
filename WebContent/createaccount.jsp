@@ -6,7 +6,7 @@
 	<div class="bg-contact2" style="background-image: url('${pageContext.request.contextPath}/images/bg-02.jpg');">
 		<div class="container-contact2">
 			<div class="wrap-contact2">
-				<form class="contact2-form validate-form" method="post" action="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=createaccount") %>"">
+				<form class="contact2-form validate-form" method="post" action="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>"">
 					<span class="contact2-form-title" style="padding-bottom: 50px !important; font-size: 24px !important; font-family: Poppins-Regular !important;">
 						<img src="${pageContext.request.contextPath}/images/critique-u-vector-serif.svg" height="80px" style="margin-bottom: 40px;"/>
 						<br/>Create a New Account
