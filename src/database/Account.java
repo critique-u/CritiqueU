@@ -38,6 +38,7 @@ public class Account
 			count = rs.getInt("count"); //using the named label of the result. Ordered integers can also be used
 		
 		rs.close();
+		statement.close();
 		
 		if(count == 0)
 			return false;
@@ -79,10 +80,24 @@ public class Account
 		}
 		
 		rs.close();
+		statement.close();
 		
 		if(count == 0)
 			return false;
 		else
 			return true;
+	}
+	
+	public void closeDBConnection()
+	{
+		try
+		{
+			conn.close();
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
