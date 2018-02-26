@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:import url="header.jsp">
 <c:param name="title" value="Critique U - Create Account Success"></c:param>
+<c:param name="bodyid" value=""></c:param>
 </c:import>
 
 	<div class="bg-contact2" style="background-image: url('${pageContext.request.contextPath}/images/bg-02.jpg');">
@@ -14,6 +15,8 @@
 						<p>Account created with email:</p>
 
 						<p><%= request.getAttribute("email") %></p>
+						
+						<a href="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=login") %>">My user dashboard</a>
 						
 						
 				</span>

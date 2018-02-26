@@ -3,7 +3,7 @@
           
         <div class="navbar-header pull-left">     
           	<a class="navbar-brand" href="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>">
-      			<img src="${pageContext.request.contextPath}/images/critique-u-vector-serif-inverse.svg" style="height: 45px; margin-top: -12px;" />
+      			<img src="${pageContext.request.contextPath}/images/critique-u-vector-serif-mono.svg" style="height: 45px; margin-top: -12px;" />
       		</a>
         </div>
         <div class="navbar-header pull-right">
