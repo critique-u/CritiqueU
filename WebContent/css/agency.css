@@ -130,6 +130,33 @@ img::-moz-selection {
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+#mainNav .navbar-nav .nav-item .nav-text {
+  font-size: 90%;
+  font-weight: 400;
+  padding: 0.75em 0;
+  letter-spacing: 1px;
+  color: white;
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  opacity: 0.5;
+  display: inline-block;
+  margin-top: 6px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#mainNav .navbar-nav .nav-item .nav-spacer {
+  font-size: 90%;
+  font-weight: 400;
+  padding: 0.75em 0;
+  letter-spacing: 1px;
+  color: white;
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: inline-block;
+  margin-top: 6px;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #fed136;
 }
