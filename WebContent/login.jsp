@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:import url="header.jsp">
 <c:param name="title" value="Critique U - Log In"></c:param>
+<c:param name="bodyid" value=""></c:param>
 </c:import>
-
 
 <c:if test='${sessionScope.email != null}'>
     <jsp:forward page="/loginsuccess.jsp" />
@@ -13,7 +13,7 @@
 			<div class="wrap-contact2">
 				<form class="contact2-form validate-form" method="post" action="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>"">
 					<span class="contact2-form-title" style="padding-bottom: 50px !important; font-size: 24px !important; font-family: Poppins-Regular !important;">
-						<img src="${pageContext.request.contextPath}/images/critique-u-vector-serif.svg" height="80px" style="margin-bottom: 40px;"/>
+						<a href="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>"><img src="${pageContext.request.contextPath}/images/critique-u-vector-serif.svg" height="80px" style="margin-bottom: 40px;"/></a>
 						<br/>Log In
 						<p>Don't have an account? <a href="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=createaccount") %>">Create one</a>!</p>
 					</span>

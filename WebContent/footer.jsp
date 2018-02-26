@@ -7,6 +7,25 @@
 	<script src="${pageContext.request.contextPath}/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	
+	
+<!-- Bootstrap core JavaScript -->
+    <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="${pageContext.request.contextPath}/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="${pageContext.request.contextPath}/js/jqBootstrapValidation.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="${pageContext.request.contextPath}/js/agency.min.js"></script>	
+	
+	
+	
+	
+	
+	
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>

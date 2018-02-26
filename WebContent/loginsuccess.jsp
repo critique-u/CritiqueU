@@ -7,6 +7,7 @@
 
 <c:import url="header.jsp">
 <c:param name="title" value="Critique U - Log In Success"></c:param>
+<c:param name="bodyid" value=""></c:param>
 </c:import>
 <c:import url="navbar.jsp"></c:import>
 

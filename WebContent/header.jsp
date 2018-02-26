@@ -21,7 +21,6 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
-<!--===============================================================================================-->
 <style>
 	.my-login-error
 	{
@@ -40,4 +39,4 @@
   	}
 </style>
 </head>
-<body>
+<body id="${param.bodyid}">
