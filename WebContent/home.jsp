@@ -25,35 +25,13 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/css/agency.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/agency.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
   </head>
 
   <body id="page-top">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" id="critiqueu-logo" href="#page-top"><img src="${pageContext.request.contextPath}/images/critique-u-vector-serif-mono.svg" style="height: 60px; margin-top: -5px;" /></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">ABOUT</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=login") %>">LOG IN</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=createaccount") %>">SIGN UP</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+	<c:import url="navbar2.jsp"></c:import>
 
     <!-- Header -->
     <header class="masthead">
@@ -365,6 +343,19 @@
 
     <!-- Custom scripts for this template -->
     <script src="${pageContext.request.contextPath}/js/agency.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+         $('#logout').click(function() {
+        	 console.log("inside js");
+        	 var url = '${pageContext.request.contextPath}' + "/Controller";
+        	 var form = $('<form action="' + url + '" method="post">' +
+        	   '<input type="text" name="action" value="logout" />' +
+        	   '</form>');
+        	 $('body').append(form);
+        	 form.submit();
+         });
+    });
+    </script>
 
   </body>
 
