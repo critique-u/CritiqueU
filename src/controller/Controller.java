@@ -20,6 +20,11 @@ import javax.sql.DataSource;
 import beans.User;
 import database.Account;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.Bucket;
+import java.util.List;
+
 /**
  * Servlet implementation class Controller
  */
@@ -51,6 +56,15 @@ public class Controller extends HttpServlet {
 			//now I can use this context to look up my data source (the mysql aws database)
 			
 			ds = (DataSource)env.lookup("jdbc/critiqueudb");
+			
+			//***storage test***
+			final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+	        List<Bucket> buckets = s3.listBuckets();
+	        System.out.println("Your Amazon S3 buckets are:");
+	        for (Bucket b : buckets) {
+	            System.out.println("* " + b.getName());
+	        }
+			//***storage test***
 		}
 		catch (NamingException e)
 		{
@@ -86,6 +100,10 @@ public class Controller extends HttpServlet {
 			request.setAttribute("repeatpassword", "");
 			request.setAttribute("message", "");
 			request.getRequestDispatcher("/createaccount.jsp").forward(request, response);
+		}
+		else if(action.equals("dashboard"))
+		{
+			request.getRequestDispatcher("/loginsuccess.jsp").forward(request, response);
 		}
 		else
 		{

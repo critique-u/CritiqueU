@@ -2,7 +2,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/vendor/bootstrap/js/popper.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 <!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
@@ -19,7 +19,7 @@
     <script src="${pageContext.request.contextPath}/js/jqBootstrapValidation.js"></script>
 
     <!-- Custom scripts for this template -->
-    <script src="${pageContext.request.contextPath}/js/agency.min.js"></script>	
+    <script src="${pageContext.request.contextPath}/js/agency.js"></script>	
 	
 	
 	
