@@ -28,7 +28,7 @@
 
   // Collapse Navbar
   var navbarCollapse = function() {
-    if ($("#mainNav").offset().top > 200) {
+    if ($("#mainNav").offset().top > 50) {
       $("#mainNav").addClass("navbar-shrink");
       //$('#critiqueu-logo').css("visibility", "visible");
     } else {

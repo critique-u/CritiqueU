@@ -482,3 +482,54 @@
 
 .select2-container--classic.select2-container--open .select2-dropdown {
   border-color: #5897fb; }
+  
+.grid-dashboard{
+  height: 200px;
+  width: 200px;
+}
+
+.cover {
+  object-fit: cover;
+  /**
+    * The whole image is scaled down or expanded till 
+    * it fills the box completely, the aspect ratio is 
+    * maintained. This normally results in only part of
+    * the image being visible. 
+    **/
+}
+
+.container-artwork {
+    position: relative;
+}
+
+.image-artwork {
+  opacity: 1;
+  display: block;
+  transition: .3s ease;
+  backface-visibility: hidden;
+}
+
+.middle-artwork {
+  transition: .3s ease;
+  opacity: 0;
+  position: absolute;
+  top: 75px;
+  left: 75px;
+  text-align: center;
+}
+
+.container-artwork:hover .image-artwork {
+  opacity: 0.3;
+}
+
+.container-artwork:hover .middle-artwork {
+  opacity: .8;
+}
+
+.text-artwork {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 36px;
+  height: 50px;
+  width: 50px;
+}
