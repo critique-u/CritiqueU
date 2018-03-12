@@ -39,7 +39,8 @@
 	
 	<script type="text/javascript">
     $(document).ready(function() {
-         $('#logout').click(function() {
+         $('#logout').click(function()
+		 {
         	 console.log("inside js");
         	 var url = '${pageContext.request.contextPath}' + "/Controller";
         	 var form = $('<form action="' + url + '" method="post">' +
@@ -48,6 +49,23 @@
         	 $('body').append(form);
         	 form.submit();
          });
+         
+        //declare a global to track index. This will be incremented after each server request 
+        var index = 9;
+         
+       	$('#somebutton').click(function()
+       	{
+       		console.log("ajax test.");
+       		var url = '${pageContext.request.contextPath}' + "/Controller";
+       		var params = "?action=more&index="+index;
+       		$.get(url+params, function(responseText, status)
+      		{   
+       			// Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                $("#somediv").append(responseText + " " + status);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+            });
+       		index += 9;
+       	});
+         	
     });
     </script>
 

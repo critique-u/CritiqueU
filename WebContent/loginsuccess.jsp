@@ -12,7 +12,7 @@
 <c:import url="navbar2.jsp"></c:import>
 
 <sql:setDataSource var="ds" dataSource="jdbc/critiqueudb" />
-<sql:query dataSource="${ds}" sql="select * from artwork where email='${sessionScope.email}' limit 10;" var="results" />
+<sql:query dataSource="${ds}" sql="select * from artwork where email='${sessionScope.email}' limit 8;" var="results" />
 
 	<div class="bg-contact2" style="background-image: url('${pageContext.request.contextPath}/images/bg-02.jpg');">
 		<div class="container-contact2" style="padding-top: 100px;">
@@ -73,6 +73,9 @@
 					</ul>
 				</span>
 				
+				<div id="somediv">
+					<button id="somebutton">ajax call</button>
+				</div>
 				
 			</div>
 		</div>

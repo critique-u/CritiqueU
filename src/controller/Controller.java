@@ -101,9 +101,18 @@ public class Controller extends HttpServlet {
 			request.setAttribute("message", "");
 			request.getRequestDispatcher("/createaccount.jsp").forward(request, response);
 		}
-		else if(action.equals("dashboard"))
+		else if(action.equals("myart"))
 		{
 			request.getRequestDispatcher("/loginsuccess.jsp").forward(request, response);
+		}
+		else if(action.equals("more"))
+		{
+			String index = request.getParameter("index");
+			String text = "<p>This was generated on the server with index "+index+"</p>";
+
+		    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+		    response.setCharacterEncoding("UTF-8"); 
+		    response.getWriter().write(text);       // Write response body.
 		}
 		else
 		{
