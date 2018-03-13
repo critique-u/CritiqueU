@@ -6,13 +6,13 @@
 </c:if>
 
 <c:import url="header.jsp">
-<c:param name="title" value="Critique U - Log In Success"></c:param>
+<c:param name="title" value="Critique U - My Art"></c:param>
 <c:param name="bodyid" value=""></c:param>
 </c:import>
 <c:import url="navbar2.jsp"></c:import>
 
 <sql:setDataSource var="ds" dataSource="jdbc/critiqueudb" />
-<sql:query dataSource="${ds}" sql="select * from artwork where email='${sessionScope.email}' limit 10;" var="results" />
+<sql:query dataSource="${ds}" sql="select * from artwork where email='${sessionScope.email}' order by datetime desc limit 8;" var="results" />
 
 	<div class="bg-contact2" style="background-image: url('${pageContext.request.contextPath}/images/bg-02.jpg');">
 		<div class="container-contact2" style="padding-top: 100px;">
@@ -29,7 +29,7 @@
 							<p>Session Object variable: <%= mySession.getAttribute("email") %></p><br/>
 						 -->
 						
-					<ul class="row">
+					<ul class="row" id="artwork-grid-container">
 						<!-- Display 'upload image' box first in the grid -->
 						<li class="col-md-4" style="margin-bottom: 20px;">
 							<div class="grid-dashboard cover" style="background-color: #e6e6e6; display: table-cell; vertical-align: middle">
@@ -50,7 +50,7 @@
 								  <div class="middle-artwork">
 
 								    
-										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" data-toggle="modal" data-target="#${image.image_stem}-modal">
+										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal('${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}')">
 								  			&#x2B67;
 										</button>								    
 								    
@@ -73,15 +73,17 @@
 					</ul>
 				</span>
 				
+				<div id="somediv" style="display: block; text-align: center;">
+					<a href="javascript:void(0);" id="somebutton">load more...</a>
+				</div>
 				
 			</div>
 		</div>
 	</div>
 	
-<c:forEach var="image" items="${results.rows}">
-<!-- ${image.image_stem} modal -->
-	<div class="modal fade" id="${image.image_stem}-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
+<!-- ${image.image_stem} modal template -->
+	<div class="modal fade" id="artwork-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLabel">${image.title}</h5>
@@ -90,7 +92,10 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        ...
+	        <div class="row">
+  				<div class="col-8">col-8</div>
+  				<div class="col-4">col-4</div>
+			</div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -100,6 +105,5 @@
 	  </div>
 	</div>
 										
-</c:forEach>	
 	
 <c:import url="footer.jsp"></c:import>
