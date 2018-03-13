@@ -50,4 +50,4 @@
   	}
 </style>
 </head>
-<body id="${param.bodyid}">
+<body id="page-top">

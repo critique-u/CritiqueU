@@ -9,7 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>Controller</welcome-file>
-    <welcome-file>dashboard</welcome-file>
+    <welcome-file>home</welcome-file>
   </welcome-file-list>
   <resource-ref>
     <description>DB Connection</description>
@@ -25,6 +25,6 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Controller</servlet-name>
-  	<url-pattern>/controller</url-pattern>
+  	<url-pattern>/home</url-pattern>
   </servlet-mapping>
 </web-app>
