@@ -38,10 +38,11 @@
 	</script>
 	
 	<script type="text/javascript">
-	function createModal(title, imageurl)
+	function createModal(title, imageUrl, imageDescription, contextPath)
     {
-		console.log(title);
-		
+		console.log("context path: " + contextPath);
+		console.log("title: " + title);
+		console.log("description: " + imageDescription);
     	//dynamically create html of "#artwork-modal" depending on which image was clicked
     	var modalHTML =
    		'<div class="modal-dialog modal-lg" role="document">' +
@@ -54,8 +55,8 @@
   	      		'</div>' +
   	      		'<div class="modal-body">' +
   	        		'<div class="row">' +
-  						'<div class="col-8"><img src="' + imageurl + '" style="width: 100%;"></img></div>' +
-  						'<div class="col-4">critique form placeholder<br/><br/>critique list placeholder</div>' +
+  						'<div class="col-8"><img src="' + imageUrl + '" style="width: 100%;"></img></div>' +
+  						'<div class="col-4">' + imageDescription +'<br/><br/>critique summary placeholder (star average?)</div>' +
 					'</div>' +
   	      		'</div>' +
   	      		'<div class="modal-footer">' +
@@ -70,6 +71,19 @@
     	
     	//display the modal
 	  		$('#artwork-modal').modal('show');	
+    };
+    
+    function createModal2(title, imageUrl, imageDescription, contextPath)
+    {
+    	console.log("using simpler createModal2 function");
+    	
+    	//set the inner HTML on each particular div/span id
+    	$('#artwork-modal-title').html(title);
+    	$('#artwork-modal-image').html("<img src='" + imageUrl + "' style='width: 100%;'></img>");
+    	$('#artwork-modal-description').html(imageDescription);
+    	
+    	//display the modal
+  		$('#artwork-modal').modal('show');
     };
 	
 	
@@ -90,15 +104,17 @@
         var index = 8;
          
         //ajax test on button click
-       	$('#somebutton').click(function()
+       	$('#load-more-button').click(function()
        	{
        		console.log("ajax test.");
        		var url = '${pageContext.request.contextPath}' + "/Controller";
        		var params = "?action=more&index="+index;
        		$.get(url+params, function(responseText, status)
       		{   
+       			console.log(responseText);
        			// Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
        			var imagesObject = JSON.parse(responseText);
+       			
        			//console.log(imagesObject[0].title);
        			console.log(imagesObject[8] === undefined);
        			console.log(imagesObject[2] === undefined);
@@ -115,7 +131,7 @@
 					'<div class="container-artwork">' +
 					  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email.toString() + '/' + imagesObject[image].title.toString() + '"/>' +
 					  	'<div class="middle-artwork">' +
-							'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal(' + imagesObject[image].email.toString() + ', ' + urlString.toString() + '">' +
+							'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal(' + imagesObject[image].email.toString() + ', ' + urlString.toString() + ', ' + imagesObject[image].description.toString() + '">' +
 					  			'&#x2B67;' +
 							'</button>' +
 					  '</div>' +
@@ -130,7 +146,7 @@
     							'<div class="container-artwork">' +
     							  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email + '/' + imagesObject[image].url + '"/>' +
     							  	'<div class="middle-artwork">' +
-    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal(&apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;)">' +
+    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(&apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
     							  			'&#x2B67;' +
     									'</button>' +
     							  '</div>' +
