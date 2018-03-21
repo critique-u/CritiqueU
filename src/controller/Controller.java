@@ -11,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -151,6 +152,10 @@ public class Controller extends HttpServlet {
 				//declare inner Json to hold each of 9 new image data, one at at time
 				JSONObject innerObj;
 				
+				//get context path. This will be included in the returned json so that it can then be used in
+					//the javascript function in each artwork modal to link to that image's critique page
+				String contextPath = request.getContextPath();
+				
 				//declare int to iterate over for json
 				int jsonIndex = 0;
 				
@@ -160,6 +165,8 @@ public class Controller extends HttpServlet {
 					innerObj = new JSONObject();
 					innerObj.put("email", emailTemp);
 					innerObj.put("title", rs.getString("title"));
+					innerObj.put("description", rs.getString("description"));
+					innerObj.put("contextPath", contextPath);
 					String url = rs.getString("image_stem") + "." + rs.getString("image_extension");
 					innerObj.put("url", url);
 					//System.out.println(rs.getString("title"));
@@ -167,7 +174,7 @@ public class Controller extends HttpServlet {
 					jsonIndex++;
 				}
 				
-				System.out.println(obj);
+				System.out.println(obj.toString());
 
 				rs.close();
 				statement.close();
@@ -176,17 +183,31 @@ public class Controller extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			
-			
+			//System.out.println(request.getContextPath());
 			
 			//old test portion being returned to the javascript function
-			String index = request.getParameter("index");
-			String text = "<p>This was generated on the server with index "+index+"</p>";
+			//String index = request.getParameter("index");
+			//String text = "<p>This was generated on the server with index "+index+"</p>";
 
 		    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
 		    response.setCharacterEncoding("UTF-8"); 
 		    response.getWriter().write(obj.toString());       // Write response body.
 		    
+		}
+		else if(action.equals("image"))
+		{
+			/*If action is "image", we will grab artist and image parameters from the url
+			*then forward to a to-be-created .jsp which will contain high-res image, plus the form
+			*to complete a full critique. The idea is to do it this way so that any image url can be easily
+			*shared publicly. The page should only allow critique submission if user is logged in and if the
+			*the user is not the artist (use condition to render multiple versions in the jsp)
+			 */
+			String artist = request.getParameter("artist");
+			String title = request.getParameter("title");
+			
+			System.out.println("Controller successfully accessed '"+ title + "' image data by artist: " + artist + ".");
+			
+			//example url: http://localhost:8080/CritiqueU/Controller?action=image&artist=mike@email.com&title=raccoon
 		}
 		else
 		{
@@ -231,7 +252,7 @@ public class Controller extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			
-			User user = new User(email, password);
+			//User user = new User(email, password);
 			
 			//set these request attributes. In case of login failure, they will
 				//autopopulate in the form for a retry (empty string password is intended)

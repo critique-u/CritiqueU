@@ -46,11 +46,11 @@
 							<li class="col-md-4" style="margin-bottom: 20px;">
 									
 								<div class="container-artwork">
-								  <img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}"/>
+								  <img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}" />
 								  <div class="middle-artwork">
 
 								    
-										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal('${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}')">
+										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2('${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
 								  			&#x2B67;
 										</button>								    
 								    
@@ -74,7 +74,7 @@
 				</span>
 				
 				<div id="somediv" style="display: block; text-align: center;">
-					<a href="javascript:void(0);" id="somebutton">load more...</a>
+					<a href="javascript:void(0);" id="load-more-button">load more...</a>
 				</div>
 				
 			</div>
@@ -86,15 +86,15 @@
 	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">${image.title}</h5>
+	        <h5 class="modal-title" id="artwork-modal-title">default image title</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
 	        <div class="row">
-  				<div class="col-8">col-8</div>
-  				<div class="col-4">col-4</div>
+  				<div class="col-8" id="artwork-modal-image"><img src="" style="width: 100%;"></img></div>
+  				<div class="col-4" id="artwork-modal-description">default image description</div>
 			</div>
 	      </div>
 	      <div class="modal-footer">
