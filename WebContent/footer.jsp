@@ -73,12 +73,13 @@
 	  		$('#artwork-modal').modal('show');	
     };
     
-    function createModal2(title, imageUrl, imageDescription, contextPath)
+    function createModal2(artist, title, imageUrl, imageDescription, contextPath)
     {
     	console.log("using simpler createModal2 function");
     	
     	//set the inner HTML on each particular div/span id
     	$('#artwork-modal-title').html(title);
+    	$('#artwork-modal-artist').html(artist);
     	$('#artwork-modal-image').html("<img src='" + imageUrl + "' style='width: 100%;'></img>");
     	$('#artwork-modal-description').html(imageDescription);
     	
