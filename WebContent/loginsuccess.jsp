@@ -109,7 +109,7 @@
 						<input type="hidden" name="action" value="submitcritique" />
 						
 						
-						<ul class="row" style="margin-top: 0px;">
+						<ul class="row" style="margin-top: 20px;">
 						
 						
 							<!-- composition -->
@@ -266,7 +266,6 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
 	      </div>
 	    </div>
 	  </div>

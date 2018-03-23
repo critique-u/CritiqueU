@@ -132,7 +132,7 @@
 					'<div class="container-artwork">' +
 					  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email.toString() + '/' + imagesObject[image].title.toString() + '"/>' +
 					  	'<div class="middle-artwork">' +
-							'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal(' + imagesObject[image].email.toString() + ', ' + urlString.toString() + ', ' + imagesObject[image].description.toString() + '">' +
+							'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(' + imagesObject[image].email.toString() + ', ' + urlString.toString() + ', ' + imagesObject[image].description.toString() + '">' +
 					  			'&#x2B67;' +
 							'</button>' +
 					  '</div>' +
@@ -147,7 +147,7 @@
     							'<div class="container-artwork">' +
     							  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email + '/' + imagesObject[image].url + '"/>' +
     							  	'<div class="middle-artwork">' +
-    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(&apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
+    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
     							  			'&#x2B67;' +
     									'</button>' +
     							  '</div>' +
