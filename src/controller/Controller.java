@@ -197,17 +197,22 @@ public class Controller extends HttpServlet {
 		else if(action.equals("image"))
 		{
 			/*If action is "image", we will grab artist and image parameters from the url
-			*then forward to a to-be-created .jsp which will contain high-res image, plus the form
+			*then forward to a new .jsp which will contain high-res image, plus the form
 			*to complete a full critique. The idea is to do it this way so that any image url can be easily
 			*shared publicly. The page should only allow critique submission if user is logged in and if the
 			*the user is not the artist (use condition to render multiple versions in the jsp)
 			 */
+			
+			request.setAttribute("message", "");
+			
 			String artist = request.getParameter("artist");
 			String title = request.getParameter("title");
 			
 			System.out.println("Controller successfully accessed '"+ title + "' image data by artist: " + artist + ".");
 			
 			//example url: http://localhost:8080/CritiqueU/Controller?action=image&artist=mike@email.com&title=raccoon
+			
+			request.getRequestDispatcher("/imagecritique.jsp").forward(request, response);
 		}
 		else
 		{
@@ -480,6 +485,7 @@ public class Controller extends HttpServlet {
 			//invalidate the session
 			request.setAttribute("email", null);
 			mySession.setAttribute("email", null);
+			mySession.setAttribute("loggedin", "false");
 			mySession.invalidate();
 			request.getRequestDispatcher("/home.jsp").forward(request, response);
 		}
