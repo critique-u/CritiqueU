@@ -4,7 +4,7 @@
   // Smooth scrolling using jQuery easing
   $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
+    	var target = $(this.hash);
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
       if (target.length) {
         $('html, body').animate({
@@ -12,6 +12,27 @@
         }, 1000, "easeInOutExpo");
         return false;
       }
+    }
+  });
+  
+  // Smooth scrolling within modal using jQuery easing
+  $('a.js-scroll-trigger-modal[href*="#"]:not([href="#"])').click(function() {
+	  console.log(location.pathname);
+	  console.log(this.pathname);
+	  console.log(location.hostname);
+	  console.log(this.hostname);
+	  console.log(this.hash);
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      
+        $('#artwork-modal').animate({
+          scrollTop: (target.offset().top - window.pageYOffset)
+        }, 1000, "easeInOutExpo");
+        console.log("modal ease");
+        
+        return false;
+      
     }
   });
 
