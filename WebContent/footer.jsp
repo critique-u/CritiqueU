@@ -83,9 +83,28 @@
     	$('#artwork-modal-image').html("<img src='" + imageUrl + "' style='width: 100%;'></img>");
     	$('#artwork-modal-description').html(imageDescription);
     	
+    	clearCritique();
+    	
     	//display the modal
   		$('#artwork-modal').modal('show');
     };
+    
+    function clearCritique()
+    {
+    	console.log("inside clearCritique function");
+    	console.log("before: " + $('[name="composition-rating"]:checked').val());
+    	
+    	$('input[name="composition-rating"]').prop('checked', false);
+    	$('input[name="line-rating"]').prop('checked', false);
+    	$('input[name="form-rating"]').prop('checked', false);
+    	$('input[name="color-rating"]').prop('checked', false);
+    	$('input[name="craft-rating"]').prop('checked', false);
+    	$('input[name="successfulness-rating"]').prop('checked', false);
+    	
+    	console.log("after: " + $('[name="composition-rating"]:checked').val());
+    	
+    	$('.input2').val("");
+    }
 	
 	
     $(document).ready(function() {

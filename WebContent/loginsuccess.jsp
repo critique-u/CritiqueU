@@ -116,7 +116,7 @@
 							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
 								
 								Composition<br/>
-								<span class="user-rating" style="padding-top: 5px;">
+								<span id="stars-composition" class="user-rating" style="padding-top: 5px;">
 									<input type="radio" name="composition-rating" value="5"><span class="star"></span>
 								    <input type="radio" name="composition-rating" value="4"><span class="star"></span>
 								    <input type="radio" name="composition-rating" value="3"><span class="star"></span>	
@@ -137,7 +137,7 @@
 							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
 								
 								Line<br/>
-								<span class="user-rating" style="padding-top: 5px;">
+								<span id="stars-line" class="user-rating" style="padding-top: 5px;">
 									<input type="radio" name="line-rating" value="5"><span class="star"></span>
 								    <input type="radio" name="line-rating" value="4"><span class="star"></span>
 								    <input type="radio" name="line-rating" value="3"><span class="star"></span>	
@@ -158,7 +158,7 @@
 							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
 								
 								Form<br/>
-								<span class="user-rating" style="padding-top: 5px;">
+								<span id="stars-line" class="user-rating" style="padding-top: 5px;">
 									<input type="radio" name="form-rating" value="5"><span class="star"></span>
 								    <input type="radio" name="form-rating" value="4"><span class="star"></span>
 								    <input type="radio" name="form-rating" value="3"><span class="star"></span>	
@@ -179,7 +179,7 @@
 							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
 								
 								Color<br/>
-								<span class="user-rating" style="padding-top: 5px;">
+								<span id="stars-color" class="user-rating" style="padding-top: 5px;">
 									<input type="radio" name="color-rating" value="5"><span class="star"></span>
 								    <input type="radio" name="color-rating" value="4"><span class="star"></span>
 								    <input type="radio" name="color-rating" value="3"><span class="star"></span>	
@@ -200,7 +200,7 @@
 							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
 								
 								Craft/Technique<br/>
-								<span class="user-rating" style="padding-top: 5px;">
+								<span id="stars-craft" class="user-rating" style="padding-top: 5px;">
 									<input type="radio" name="craft-rating" value="5"><span class="star"></span>
 								    <input type="radio" name="craft-rating" value="4"><span class="star"></span>
 								    <input type="radio" name="craft-rating" value="3"><span class="star"></span>	
@@ -221,7 +221,7 @@
 							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
 								
 								Overall Successfulness<br/>
-								<span class="user-rating" style="padding-top: 5px;">
+								<span id="stars-successfulness" class="user-rating" style="padding-top: 5px;">
 									<input type="radio" name="successfulness-rating" value="5"><span class="star"></span>
 								    <input type="radio" name="successfulness-rating" value="4"><span class="star"></span>
 								    <input type="radio" name="successfulness-rating" value="3"><span class="star"></span>	
