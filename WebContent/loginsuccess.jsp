@@ -105,7 +105,7 @@
 			</div>
 			
 			<section id="critique-now" style="padding: 0px;">
-				<form class="contact2-form validate-form" method="post" action="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>"">
+				<form class="contact2-form validate-form" id="my-critique-form" method="post" action="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>"">
 						<input type="hidden" name="action" value="submitcritique" />
 						
 						
@@ -247,7 +247,7 @@
 						<div class="container-contact2-form-btn">
 							<div class="wrap-contact2-form-btn" style="margin-top: 20px; margin-bottom: 20px;">
 								<div class="contact2-form-bgbtn"></div>
-								<button type="submit" class="contact2-form-btn" >SUBMIT MY CRITIQUE</button>
+								<button type="submit" class="contact2-form-btn" id="my-critique-submit-button">SUBMIT MY CRITIQUE</button>
 							</div>
 						</div>
 					</form>

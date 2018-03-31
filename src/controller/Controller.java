@@ -468,6 +468,55 @@ public class Controller extends HttpServlet {
 				}
 			}
 		}
+		else if(action.equals("submitcritique"))
+		{
+		    String criticEmail = (String) mySession.getAttribute("email");
+			
+			String artistEmail = request.getParameter("artist-email");
+			String title = request.getParameter("title");
+			
+			String compositionRating = request.getParameter("composition-rating");
+			String lineRating = request.getParameter("line-rating");
+			String formRating = request.getParameter("form-rating");
+			String colorRating = request.getParameter("color-rating");
+			String craftRating = request.getParameter("craft-rating");
+			String successfulnessRating = request.getParameter("successfulness-rating");
+			
+			String compositionComments = request.getParameter("composition-comments");
+			String lineComments = request.getParameter("line-comments");
+			String formComments = request.getParameter("form-comments");
+			String colorComments = request.getParameter("color-comments");
+			String craftComments = request.getParameter("craft-comments");
+			String successfulnessComments = request.getParameter("successfulness-comments");
+			
+			System.out.println("**********");
+			System.out.println("critic email: " + criticEmail);
+			System.out.println("artwork: " + title + " by " + "artist: " + artistEmail);
+			System.out.println("composition: " + compositionRating + ": " + compositionComments);
+			System.out.println("line: " + lineRating + ": " + lineComments);
+			System.out.println("form: " + formRating + ": " + formComments);
+			System.out.println("color: " + colorRating + ": " + colorComments);
+			System.out.println("craft: " + craftRating + ": " + craftComments);
+			System.out.println("Successfulness: " + successfulnessRating + ": " + successfulnessComments);
+			
+			
+			//TODO: insert query into database here
+			
+			
+			
+			//Now that the critique has been added to the database, 
+				//call a helper function to return critiques (most recent first)
+				//in JSON format. This will be appended to the bottom of the modal
+			
+			response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+		    response.setCharacterEncoding("UTF-8"); 
+		    //test response
+		    response.getWriter().write("artist email: " + artistEmail);       // Write response body.
+			
+			
+			
+			
+		}
 		else if(action.equals("logout"))
 		{
 			//close the database connection
