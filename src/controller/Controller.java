@@ -501,6 +501,68 @@ public class Controller extends HttpServlet {
 			
 			
 			//TODO: insert query into database here
+				//first create a prepared statement in jdbc
+				// this is a class that encapsulates a SQL statement
+				// great thing about it is that wildcards can be used
+				// don't ever concatenate this sql statement with username and password, because
+				//it will open you up to SQL injection attacks.
+		//String sql = "SELECT COUNT(*) AS count FROM user WHERE email=? AND password=?"; // ? character is a wildcard
+		//String sql = "INSERT INTO user (email, password) VALUES(?, ?)";
+		String sql = "INSERT INTO critique (email, title, criticEmail, composition, compositionComments, line, lineComments, form, formComments, color, colorComments, craft, craftComments, successfulness, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		
+		//This will execute an insert statement, even with nulls. In the future, this could be not allowed, and error message sent back (?)
+		PreparedStatement statement;
+		try {
+			statement = conn.prepareStatement(sql);
+			
+			statement.setString(1, artistEmail);
+			statement.setString(2, title);
+			statement.setString(3, criticEmail);
+			statement.setString(4, compositionRating);
+			statement.setString(5, compositionComments);
+			statement.setString(6, lineRating);
+			statement.setString(7, lineComments);
+			statement.setString(8, formRating);
+			statement.setString(9, formComments);
+			statement.setString(10, colorRating);
+			statement.setString(11, colorComments);
+			statement.setString(12, craftRating);
+			statement.setString(13, craftComments);
+			statement.setString(14, successfulnessRating);
+			statement.setString(15, successfulnessComments);
+			
+			//the result of a SQL query gets returned to ResultSet type object
+			statement.executeUpdate();
+			
+			statement.close();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			
