@@ -83,9 +83,28 @@
     	$('#artwork-modal-image').html("<img src='" + imageUrl + "' style='width: 100%;'></img>");
     	$('#artwork-modal-description').html(imageDescription);
     	
+    	clearCritique();
+    	
     	//display the modal
   		$('#artwork-modal').modal('show');
     };
+    
+    function clearCritique()
+    {
+    	console.log("inside clearCritique function");
+    	console.log("before: " + $('[name="composition-rating"]:checked').val());
+    	
+    	$('input[name="composition-rating"]').prop('checked', false);
+    	$('input[name="line-rating"]').prop('checked', false);
+    	$('input[name="form-rating"]').prop('checked', false);
+    	$('input[name="color-rating"]').prop('checked', false);
+    	$('input[name="craft-rating"]').prop('checked', false);
+    	$('input[name="successfulness-rating"]').prop('checked', false);
+    	
+    	console.log("after: " + $('[name="composition-rating"]:checked').val());
+    	
+    	$('.input2').val("");
+    }
 	
 	
     $(document).ready(function() {
@@ -103,6 +122,63 @@
          
         //declare a global to track index. This will be incremented after each server request 
         var index = 8;
+        
+        $( "#my-critique-submit-button" ).click(function( event ) {
+        	 
+        	
+        	  // Stop form from submitting normally
+        	  event.preventDefault();
+        	  
+        	  console.log("INSIDE BUTTON HANDLER");
+        	 
+        	  // Get some values from elements on the page:
+        	  var $form = $('#my-critique-form'),
+        	  	artistEmail = $("#artwork-modal-artist").html(),
+        	  	title = $("#artwork-modal-title").html(),
+        	    postAction = $form.find( "input[name='action']" ).val(),
+        	    compositionRating = $('[name="composition-rating"]:checked').val(),
+        	    compositionComments = $('[name="composition-comments"]').val(),
+        	    lineRating = $('[name="line-rating"]:checked').val(),
+        	    lineComments = $('[name="line-comments"]').val(),
+        	    formRating = $('[name="form-rating"]:checked').val(),
+        	    formComments = $('[name="form-comments"]').val(),
+        	    colorRating = $('[name="color-rating"]:checked').val(),
+        	    colorComments = $('[name="color-comments"]').val(),
+        	    craftRating = $('[name="craft-rating"]:checked').val(),
+        	    craftComments = $('[name="craft-comments"]').val(),
+        	    successfulnessRating = $('[name="successfulness-rating"]:checked').val(),
+        	    successfulnessComments = $('[name="successfulness-comments"]').val(),
+        	    url = $form.attr( "action" );
+        	  
+        	  console.log(url);
+        	 
+        	  // Send the data using post
+        	  var posting = $.post( url,
+        			  { "action": postAction,
+        		  		"composition-rating": compositionRating,
+        		  		"composition-comments": compositionComments,
+        		  		"line-rating": lineRating,
+        		  		"line-comments": lineComments,
+        		  		"form-rating": formRating,
+        		  		"form-comments": formComments,
+        		  		"color-rating": colorRating,
+        		  		"color-comments": colorComments,
+        		  		"craft-rating": craftRating,
+        		  		"craft-comments": craftComments,
+        		  		"successfulness-rating": successfulnessRating,
+        		  		"successfulness-comments": successfulnessComments,
+        		  		"artist-email": artistEmail,
+        	  			"title": title }
+        	  );
+        	 
+        	  // Put the results in a div
+        	  posting.done(function( data ) {
+        	    //var content = $( data ).find( "#content" );
+        	    //$( "#result" ).empty().append( content );
+        	    console.log(data);
+        	  });
+        });
+      	
          
         //ajax test on button click
        	$('#load-more-button').click(function()
@@ -170,7 +246,6 @@
                		$("#somediv").html('<a id="somebutton">-- that\'s it --</a>');
                	}
             });
-       		
        	});
     });
     </script>
