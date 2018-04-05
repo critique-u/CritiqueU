@@ -470,6 +470,9 @@ public class Controller extends HttpServlet {
 		}
 		else if(action.equals("submitcritique"))
 		{
+			response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+		    response.setCharacterEncoding("UTF-8"); 
+			
 		    String criticEmail = (String) mySession.getAttribute("email");
 			
 			String artistEmail = request.getParameter("artist-email");
@@ -500,7 +503,7 @@ public class Controller extends HttpServlet {
 			System.out.println("Successfulness: " + successfulnessRating + ": " + successfulnessComments);
 			
 			
-			//TODO: insert query into database here
+			//insert query into database here
 				//first create a prepared statement in jdbc
 				// this is a class that encapsulates a SQL statement
 				// great thing about it is that wildcards can be used
@@ -537,48 +540,30 @@ public class Controller extends HttpServlet {
 			
 			statement.close();
 			
+			//TODO: Now that the critique has been added to the database, 
+			//call a helper function to return critiques (most recent first)
+			//in JSON format. This will be appended to the bottom of the modal
+			
+		    response.getWriter().write("success");       // Write response body.
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			response.getWriter().write("failure");       // Write response body.
 		}
 		
-		
-		
-		
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			//Now that the critique has been added to the database, 
-				//call a helper function to return critiques (most recent first)
-				//in JSON format. This will be appended to the bottom of the modal
-			
-			response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-		    response.setCharacterEncoding("UTF-8"); 
+			//response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+		    //response.setCharacterEncoding("UTF-8"); 
 		    //test response
-		    response.getWriter().write("artist email: " + artistEmail);       // Write response body.
-			
-			
-			
-			
+		    //response.getWriter().write("artist email: " + artistEmail);       // Write response body.
+		    
+		    //request.setAttribute("artist", artistEmail);
+			//request.setAttribute("title", title);
+			//System.out.println("line before the forward");
+			//request.getRequestDispatcher("/imagecritique.jsp").forward(request, response);
 		}
+
 		else if(action.equals("logout"))
 		{
 			//close the database connection
@@ -627,6 +612,62 @@ public class Controller extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	protected String loadCritiques(HttpServletRequest request, HttpServletResponse response, int startIndex, String artistEmail, String title)
+	{
+		String sql = "SELECT * FROM critique AS result WHERE email=? AND title=? ORDER BY datetime DESC LIMIT " + startIndex +", 5"; // ? character is a wildcard
+	    
+	    //declare and initialize Json object to return
+		JSONObject obj = new JSONObject();
+	    
+		PreparedStatement statement;
+		try {
+			Connection conn = null;
+			conn = ds.getConnection();
+			statement = conn.prepareStatement(sql);
+			//statement.setString(1, emailTemp);
+			
+			//the result of a SQL query gets returned to ResultSet type object
+			ResultSet rs = statement.executeQuery();
+			
+			//declare inner Json to hold each of 9 new image data, one at at time
+			JSONObject innerObj;
+			
+			//get context path. This will be included in the returned json so that it can then be used in
+				//the javascript function in each artwork modal to link to that image's critique page
+			String contextPath = request.getContextPath();
+			
+			//declare int to iterate over for json
+			int jsonIndex = 0;
+			
+			//the result has an internal pointer that begins before the first entry, so we first must move it up
+			while(rs.next())
+			{
+				innerObj = new JSONObject();
+				//innerObj.put("email", emailTemp);
+				innerObj.put("title", rs.getString("title"));
+				innerObj.put("description", rs.getString("description"));
+				innerObj.put("contextPath", contextPath);
+				String url = rs.getString("image_stem") + "." + rs.getString("image_extension");
+				innerObj.put("url", url);
+				//System.out.println(rs.getString("title"));
+				obj.put(jsonIndex+"", innerObj);
+				jsonIndex++;
+			}
+			
+			System.out.println(obj.toString());
+
+			rs.close();
+			statement.close();
+			
+		
+		} catch (SQLException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "";
 	}
 
 }

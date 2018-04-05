@@ -12,14 +12,14 @@
 <c:import url="navbar2.jsp"></c:import>
 
 <sql:setDataSource var="ds" dataSource="jdbc/critiqueudb" />
-<sql:query dataSource="${ds}" sql="select * from artwork where email='${sessionScope.email}' order by datetime desc limit 8;" var="results" />
+<sql:query dataSource="${ds}" sql="select * from critique where email='${param.artist}' and title='${param.title}' order by datetime desc;" var="critiqueResults" />
 <sql:query dataSource="${ds}" sql="select * from artwork where email='${param.artist}' and title='${param.title}';" var="imageResult" />
 	<div class="bg-contact2" style="background-image: url('${pageContext.request.contextPath}/images/bg-02.jpg');">
 		<div class="container-contact2" style="padding-top: 100px;">
 			<div class="wrap-contact2" style="top: 0px;">
 			
 			<span class="contact2-form-title" style="text-align: left; padding-bottom: 10px !important; font-size: 24px !important; font-family: Poppins-Regular !important;">
-				<span style="float: right; display: inline-block;"><a style="font-size: 18px !important; font-family: Poppins-Regular !important;" class="js-scroll-trigger" href="#critique">critique now!</a></span>
+				<span style="float: right; display: inline-block;"><a style="font-size: 18px !important; font-family: Poppins-Regular !important;" class="js-scroll-trigger" href="#critiques"><i class="fa fa-eye" style="position: relative; padding-right: 10px;"></i>view critiques</a></span>
 				${param.title}
 				<p>by ${param.artist}</p>
 				
@@ -32,235 +32,132 @@
 	  				<div class="col-4" id="artwork-modal-description">${imageData.description}</div>
 				</div>
 			</c:forEach>
+			<c:set scope="page" var="toggleColor" value="#f7f4f4"></c:set>
 			
+			<!-- this section will contain critiques for the above image -->
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<section id="critique">
-				<form class="contact2-form validate-form" method="post" action="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>"">
-						<input type="hidden" name="action" value="submitcritique" />
-						
-						
-						<ul class="row" style="margin-top: -100px;">
-						
-						
-							<!-- composition -->
-							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
-								
-								Composition<br/>
-								<span class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="composition-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="composition-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="composition-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="composition-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="composition-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #FFFFFF; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="composition-comments" maxlength="500" style="background-color: #FFFFFF;"></textarea>
-									<span class="focus-input2" data-placeholder="Composition Comments"></span>
-								</div>
-							</li>
+				<span class="contact2-form-title" id="critiques" style="padding-top: 20px !important; padding-bottom: 0px !important; font-size: 24px !important; font-family: Poppins-Regular !important;">
 							
-							
-							<!-- line -->
-							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
-								
-								Line<br/>
-								<span class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="line-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="line-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="line-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="line-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="line-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #f7f4f4; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="line-comments" maxlength="500" style="background-color: #f7f4f4;"></textarea>
-									<span class="focus-input2" data-placeholder="Line Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- form -->
-							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
-								
-								Form<br/>
-								<span class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="form-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="form-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="form-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="form-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="form-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #FFFFFF; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="form-comments" maxlength="500" style="background-color: #FFFFFF;"></textarea>
-									<span class="focus-input2" data-placeholder="Form Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- color -->
-							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
-								
-								Color<br/>
-								<span class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="color-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="color-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="color-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="color-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="color-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #f7f4f4; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="color-comments" maxlength="500" style="background-color: #f7f4f4;"></textarea>
-									<span class="focus-input2" data-placeholder="Color Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- craft -->
-							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
-								
-								Craft/Technique<br/>
-								<span class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="craft-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="craft-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="craft-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="craft-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="craft-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #FFFFFF; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="craft-comments" maxlength="500" style="background-color: #FFFFFF;"></textarea>
-									<span class="focus-input2" data-placeholder="Craft/Technique Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- successfulness -->
-							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
-								
-								Overall Successfulness<br/>
-								<span class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="successfulness-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="successfulness-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="successfulness-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="successfulness-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="successfulness-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #f7f4f4; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="successfulness-comments" maxlength="500" style="background-color: #f7f4f4;"></textarea>
-									<span class="focus-input2" data-placeholder="Overall Comments"></span>
-								</div>
-							</li>
-						
-						</ul>
-						
-						
-						
-						
-						
-						<p class="my-login-error" style="padding-top: 10px;"><%= request.getAttribute("message") %></p>
-						<div class="container-contact2-form-btn">
-							<div class="wrap-contact2-form-btn">
-								<div class="contact2-form-bgbtn"></div>
-								<button type="submit" class="contact2-form-btn">SUBMIT MY CRITIQUE</button>
-							</div>
-						</div>
-					</form>
-				</section>
-				<br/>
-				<br/>			
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				<span class="contact2-form-title" style="padding-bottom: 50px !important; font-size: 24px !important; font-family: Poppins-Regular !important;">
-						
-						<!--
-							<img src="${pageContext.request.contextPath}/images/critique-u-vector-serif.svg" height="80px" style="margin-bottom: 40px;"/>
-							<p>You are logged in.</p>
-							<br/>
-							<p>Request variable: <%= request.getAttribute("email") %></p>
-							<% HttpSession mySession = request.getSession();  %>
-							<p>Session Object variable: <%= mySession.getAttribute("email") %></p><br/>
-						 -->
-						
-					<ul class="row" id="artwork-grid-container">
-						<!-- Display 'upload image' box first in the grid -->
-						<li class="col-md-4" style="margin-bottom: 20px;">
-							<div class="grid-dashboard cover" style="background-color: #e6e6e6; display: table-cell; vertical-align: middle">
-								upload new artwork
-							</div>
-						</li>
-						
-						
-						
-						
-						<c:forEach var="image" items="${results.rows}">
-							<c:set scope="page" var="imageName" value="${image.image_stem}.${image.image_extension}"></c:set>
-							
-							<li class="col-md-4" style="margin-bottom: 20px;">
-									
-								<div class="container-artwork">
-								  <img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}" />
-								  <div class="middle-artwork">
+							<!--
+								<img src="${pageContext.request.contextPath}/images/critique-u-vector-serif.svg" height="80px" style="margin-bottom: 40px;"/>
+								<p>You are logged in.</p>
+								<br/>
+								<p>Request variable: <%= request.getAttribute("email") %></p>
+								<% HttpSession mySession = request.getSession();  %>
+								<p>Session Object variable: <%= mySession.getAttribute("email") %></p><br/>
+							 -->
 
-								    
-										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2('${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
-								  			&#x2B67;
-										</button>								    
-								    
-								    
-								  </div>
-								</div>
+					<ul class="row">
+
+							<c:forEach var="critique" items="${critiqueResults.rows}">
 								
+								<li class="col-md-12" style="margin-bottom: 40px; background-color: ${toggleColor}; padding-top: 15px; padding-bottom: 15px;">
+										
+									<div class="container-artwork" style="text-align: left;">
+									  	<span class="contact2-form-title" style="text-align: left; padding-bottom: 10px !important; font-size: 18px !important; font-family: Poppins-Regular !important;">
+											<b>ARTWORK CRITIQUE</b>
+											<p>written by ${critique.criticEmail}</p>
+										</span>
+										<p>
+									  		<b style="margin-right: 10px;">Composition</b><br/>
+									  		<span id="stars-line" class="user-rating" style="padding-top: 0px;">
+												<input type="radio" name="composition-rating-by-${critique.criticEmail}" value="5" disabled="true" <c:if test="${critique.composition=='5'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="composition-rating-by-${critique.criticEmail}" value="4" disabled="true" <c:if test="${critique.composition=='4'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="composition-rating-by-${critique.criticEmail}" value="3" disabled="true" <c:if test="${critique.composition=='3'}">checked</c:if>><span class="star"></span>	
+											    <input type="radio" name="composition-rating-by-${critique.criticEmail}" value="2" disabled="true" <c:if test="${critique.composition=='2'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="composition-rating-by-${critique.criticEmail}" value="1" disabled="true" <c:if test="${critique.composition=='1'}">checked</c:if>><span class="star"></span>
+											</span>
+										</p>
+										<p>
+									  		${critique.compositionComments}
+										</p>
+										<p style="margin-top: 30px;">
+									  		<b style="margin-right: 10px;">Line</b><br/>
+									  		<span id="stars-line" class="user-rating" style="padding-top: 0px;">
+												<input type="radio" name="line-rating-by-${critique.criticEmail}" value="5" disabled="true" <c:if test="${critique.line=='5'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="line-rating-by-${critique.criticEmail}" value="4" disabled="true" <c:if test="${critique.line=='4'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="line-rating-by-${critique.criticEmail}" value="3" disabled="true" <c:if test="${critique.line=='3'}">checked</c:if>><span class="star"></span>	
+											    <input type="radio" name="line-rating-by-${critique.criticEmail}" value="2" disabled="true" <c:if test="${critique.line=='2'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="line-rating-by-${critique.criticEmail}" value="1" disabled="true" <c:if test="${critique.line=='1'}">checked</c:if>><span class="star"></span>
+											</span>
+										</p>
+										<p>
+									  		${critique.lineComments}
+										</p>
+										<p style="margin-top: 30px;">
+									  		<b style="margin-right: 10px;">Form</b><br/>
+									  		<span id="stars-line" class="user-rating" style="padding-top: 0px;">
+												<input type="radio" name="form-rating-by-${critique.criticEmail}" value="5" disabled="true" <c:if test="${critique.form=='5'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="form-rating-by-${critique.criticEmail}" value="4" disabled="true" <c:if test="${critique.form=='4'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="form-rating-by-${critique.criticEmail}" value="3" disabled="true" <c:if test="${critique.form=='3'}">checked</c:if>><span class="star"></span>	
+											    <input type="radio" name="form-rating-by-${critique.criticEmail}" value="2" disabled="true" <c:if test="${critique.form=='2'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="form-rating-by-${critique.criticEmail}" value="1" disabled="true" <c:if test="${critique.form=='1'}">checked</c:if>><span class="star"></span>
+											</span>
+										</p>
+										<p>
+									  		${critique.formComments}
+										</p>
+										<p style="margin-top: 30px;">
+									  		<b style="margin-right: 10px;">Color</b><br/>
+									  		<span id="stars-line" class="user-rating" style="padding-top: 0px;">
+												<input type="radio" name="color-rating-by-${critique.criticEmail}" value="5" disabled="true" <c:if test="${critique.color=='5'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="color-rating-by-${critique.criticEmail}" value="4" disabled="true" <c:if test="${critique.color=='4'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="color-rating-by-${critique.criticEmail}" value="3" disabled="true" <c:if test="${critique.color=='3'}">checked</c:if>><span class="star"></span>	
+											    <input type="radio" name="color-rating-by-${critique.criticEmail}" value="2" disabled="true" <c:if test="${critique.color=='2'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="color-rating-by-${critique.criticEmail}" value="1" disabled="true" <c:if test="${critique.color=='1'}">checked</c:if>><span class="star"></span>
+											</span>
+										</p>
+										<p>
+									  		${critique.colorComments}
+										</p>
+										<p style="margin-top: 30px;">
+									  		<b style="margin-right: 10px;">Craft/Technique</b><br/>
+									  		<span id="stars-line" class="user-rating" style="padding-top: 0px;">
+												<input type="radio" name="craft-rating-by-${critique.criticEmail}" value="5" disabled="true" <c:if test="${critique.craft=='5'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="craft-rating-by-${critique.criticEmail}" value="4" disabled="true" <c:if test="${critique.craft=='4'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="craft-rating-by-${critique.criticEmail}" value="3" disabled="true" <c:if test="${critique.craft=='3'}">checked</c:if>><span class="star"></span>	
+											    <input type="radio" name="craft-rating-by-${critique.criticEmail}" value="2" disabled="true" <c:if test="${critique.craft=='2'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="craft-rating-by-${critique.criticEmail}" value="1" disabled="true" <c:if test="${critique.craft=='1'}">checked</c:if>><span class="star"></span>
+											</span>
+										</p>
+										<p>
+									  		${critique.craftComments}
+										</p>
+										<p style="margin-top: 30px;">
+									  		<b style="margin-right: 10px;">Overall Successfulness</b><br/>
+									  		<span id="stars-line" class="user-rating" style="padding-top: 0px;">
+												<input type="radio" name="successfulness-rating-by-${critique.criticEmail}" value="5" disabled="true" <c:if test="${critique.successfulness=='5'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="successfulness-rating-by-${critique.criticEmail}" value="4" disabled="true" <c:if test="${critique.successfulness=='4'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="successfulness-rating-by-${critique.criticEmail}" value="3" disabled="true" <c:if test="${critique.successfulness=='3'}">checked</c:if>><span class="star"></span>	
+											    <input type="radio" name="successfulness-rating-by-${critique.criticEmail}" value="2" disabled="true" <c:if test="${critique.successfulness=='2'}">checked</c:if>><span class="star"></span>
+											    <input type="radio" name="successfulness-rating-by-${critique.criticEmail}" value="1" disabled="true" <c:if test="${critique.successfulness=='1'}">checked</c:if>><span class="star"></span>
+											</span>
+										</p>
+										<p>
+									  		${critique.comments}
+										</p>
+	
+									</div>
+								</li>
 								
-								
-								<p>
-									${image.title}
-								</p>
-							</li>
-																
-						</c:forEach>
-						
-						
-						
-						
-					</ul>
-				</span>
+								<c:choose>
+									  <c:when test="${toggleColor == '#f7f4f4'}">
+									    <c:set scope="page" var="toggleColor" value="#ffffff"></c:set>
+									  </c:when>
+									  <c:otherwise>
+									    <c:set scope="page" var="toggleColor" value="#f7f4f4"></c:set>
+									  </c:otherwise>
+								</c:choose>
+																	
+							</c:forEach>	
+						</ul>
+					</span>
 				
-				<div id="somediv" style="display: block; text-align: center;">
-					<a href="javascript:void(0);" id="load-more-button">load more...</a>
-				</div>
-				
+				<!--  the load more button used for user artwork
+					<div id="somediv" style="display: block; text-align: center;">
+						<a href="javascript:void(0);" id="load-more-button">load more...</a>
+					</div>
+				-->
 			</div>
 		</div>
 	</div>

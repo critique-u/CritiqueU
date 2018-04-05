@@ -104,6 +104,8 @@
     	console.log("after: " + $('[name="composition-rating"]:checked').val());
     	
     	$('.input2').val("");
+    	
+    	$('#submit-message').html("");
     }
 	
 	
@@ -175,7 +177,20 @@
         	  posting.done(function( data ) {
         	    //var content = $( data ).find( "#content" );
         	    //$( "#result" ).empty().append( content );
+        	    //console.log(data);
+        	    //window.location.replace("${pageContext.request.contextPath}/Controller?action=image&title=" + title + "&artist=" + artistEmail);
         	    console.log(data);
+        	    if(data == "success")
+       	    	{
+        	    	$("#submit-message").html("<div class='alert alert-success alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong> Critique submitted. </div><div style='margin: auto; text-align: center;'><a href='${pageContext.request.contextPath}/Controller?action=image&title=" + title + "&artist=" + artistEmail + "'><i class='fa fa-eye' style='position: relative; padding-right: 10px; padding-left: 20px;'></i>view all critiques for this artwork</a></div>");
+     	    		//$("#my-critique-form").html("");
+       	    	}
+        	    else
+       	    	{
+        	    	$("#submit-message").html("<div class='alert alert-danger alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Error!</strong> An error has occured in submitting your critique. </div><div style='margin: auto; text-align: center;'><a href='${pageContext.request.contextPath}/Controller?action=image&title=" + title + "&artist=" + artistEmail + "'><i class='fa fa-eye' style='position: relative; padding-right: 10px; padding-left: 20px;'></i>view all critiques for this artwork</a></div>");
+         	    		//$("#my-critique-form").html("");
+       	    	}
+        	    
         	  });
         });
       	
