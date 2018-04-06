@@ -30,7 +30,7 @@
 						 -->
 						
 						
-					<div class='alert alert-info alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p><strong>Welcome to CritiqueU <i>Browse</i>.</strong></p><p>Explore and critique artwork posted by your peers!</p></div>
+					<div class='alert alert-info alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p>Welcome to CritiqueU <strong><i>Browse & Critique</i>.</strong></p><p>Explore and critique artwork posted by your peers.</p></div>
 						
 						
 					<ul class="row" id="artwork-grid-container">

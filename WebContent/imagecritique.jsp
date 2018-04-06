@@ -29,7 +29,7 @@
 			<c:forEach var="imageData" items="${imageResult.rows}" end="0">
      			<div class="row">
 	  				<div class="col-8" id="artwork-modal-image"><img src="https://s3.us-east-2.amazonaws.com/critique-u/${param.artist}/${imageData.image_stem}.${imageData.image_extension}" style="width: 100%;"></img></div>
-	  				<div class="col-4" id="artwork-modal-description">${imageData.description}</div>
+	  				<div class="col-4" id="artwork-modal-description">Description<br/><p style="padding-top: 5px;">${imageData.description}</p></div>
 				</div>
 			</c:forEach>
 			<c:set scope="page" var="toggleColor" value="#f7f4f4"></c:set>
@@ -55,8 +55,10 @@
 										
 									<div class="container-artwork" style="text-align: left;">
 									  	<span class="contact2-form-title" style="text-align: left; padding-bottom: 10px !important; font-size: 18px !important; font-family: Poppins-Regular !important;">
-											<b>ARTWORK CRITIQUE</b>
-											<p>written by ${critique.criticEmail}</p>
+											<b style="display: inline-block;">ARTWORK CRITIQUE</b><p style="position: relative; display: inline-block; float: right !important;"><strong>Critique written by ${critique.criticEmail}</strong></p>
+											<p>Artwork: <i>${critique.title}</i></p>
+											<p>Artist: <i>${critique.email}</i></p>
+											
 										</span>
 										<p>
 									  		<b style="margin-right: 10px;">Composition</b><br/>

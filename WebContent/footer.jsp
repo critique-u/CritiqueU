@@ -89,6 +89,24 @@
   		$('#artwork-modal').modal('show');
     };
     
+    function createModal1(artist, title, imageUrl, imageDescription, contextPath)
+    {
+    	console.log("using simpler createModal1 function");
+    	
+    	//set the inner HTML on each particular div/span id
+    	$('#artwork-modal-title').html(title);
+    	$('#artwork-modal-artist').html(artist);
+    	$('#artwork-modal-image').html("<img src='" + imageUrl + "' style='width: 100%;'></img>");
+    	$('#artwork-modal-description').html(imageDescription);
+    	$('#go-to-critiques').attr("href", '${pageContext.request.contextPath}/Controller?action=image&title=' + title + '&artist=' + artist);
+    	
+    	//display the modal
+  		$('#artwork-modal').modal('show');
+    };
+    
+    
+    //<a href='${pageContext.request.contextPath}/Controller?action=image&title=" + title + "&artist=" + artistEmail + "'>
+    
     function clearCritique()
     {
     	console.log("inside clearCritique function");
@@ -224,8 +242,10 @@
 					'<div class="container-artwork">' +
 					  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email.toString() + '/' + imagesObject[image].title.toString() + '"/>' +
 					  	'<div class="middle-artwork">' +
-							'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(' + imagesObject[image].email.toString() + ', ' + urlString.toString() + ', ' + imagesObject[image].description.toString() + '">' +
-					  			'&#x2B67;' +
+							'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1(' + imagesObject[image].email.toString() + ', ' + urlString.toString() + ', ' + imagesObject[image].description.toString() + '">' +
+					  			'<span class="btn-icon">' +
+									'<i class="fa fa-search fa-stack-1x fa-inverse"></i>' +
+								'</span>' +
 							'</button>' +
 					  '</div>' +
 					'</div>' +
@@ -239,8 +259,10 @@
     							'<div class="container-artwork">' +
     							  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email + '/' + imagesObject[image].url + '"/>' +
     							  	'<div class="middle-artwork">' +
-    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
-    							  			'&#x2B67;' +
+    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
+    									'<span class="btn-icon">' +
+    									'<i class="fa fa-search fa-stack-1x fa-inverse"></i>' +
+    								'</span>' +
     									'</button>' +
     							  '</div>' +
     							'</div>' +

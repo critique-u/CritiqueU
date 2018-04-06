@@ -39,7 +39,7 @@
 	              <a class="nav-link js-scroll-trigger" href="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=myart") %>">My Art</a>
 	            </li>
 	            <li class="nav-item">
-	              <a class="nav-link js-scroll-trigger" href="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=browse") %>">Browse</a>
+	              <a class="nav-link js-scroll-trigger" href="<%= response.encodeUrl(request.getContextPath() + "/Controller?action=browse") %>">Browse & Critique</a>
 	            </li>
 	            <span class="nav-item">
 		          <span class="nav-text">${sessionScope.email}</span>

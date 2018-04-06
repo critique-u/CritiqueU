@@ -29,14 +29,27 @@
 							<p>Session Object variable: <%= mySession.getAttribute("email") %></p><br/>
 						 -->
 						
-					<div class='alert alert-info alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p><strong>Welcome to your CritiqueU <i>My Art</i> dashboard!</strong></p><p>Upload new artwork and review your portfolio here.</p></div>
+					<div class='alert alert-info alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p>Welcome to your CritiqueU <strong><i>My Art</i></strong> dashboard.</p><p>Upload new artwork and review your portfolio here.</p></div>
 					
 					
 					<ul class="row" id="artwork-grid-container">
 						<!-- Display 'upload image' box first in the grid -->
 						<li class="col-md-4" style="margin-bottom: 20px;">
-							<div class="grid-dashboard cover" style="background-color: #e6e6e6; display: table-cell; vertical-align: middle">
-								upload new artwork
+							<div class="container-artwork">
+								<a href="#" data-toggle="tooltip" title="Upload new artwork"><img class="grid-dashboard cover image-artwork" alt="upload new artwork" src="${pageContext.request.contextPath}/images/add_icon.png" style="display: table-cell; vertical-align: middle; padding: 40px; opacity: .4;">
+								</img>
+								<div class="middle-artwork">
+
+							    
+									<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
+							  			<span class="btn-icon">
+									                <i class="fa fa-upload fa-stack-1x fa-inverse"></i>
+									        </span>
+									</button>
+																    
+							  	</div>
+							  	</a>
+									
 							</div>
 						</li>
 						
@@ -53,10 +66,10 @@
 								  <div class="middle-artwork">
 
 								    
-										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
+										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
 								  			<span class="btn-icon">
-										                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-										        </span>
+										                <i class="fa fa-search fa-stack-1x fa-inverse"></i>
+									        </span>
 										</button>
 																	    
 								  </div>
@@ -90,14 +103,14 @@
 	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <span class="contact2-form-title" style="text-align: left; padding-bottom: 10px !important; font-size: 24px !important; font-family: Poppins-Regular !important; width: 78%;">
+	        <span class="contact2-form-title" style="text-align: left; padding-bottom: 10px !important; font-size: 24px !important; font-family: Poppins-Regular !important; width: 72%;">
 				<span id="artwork-modal-title">
 					default artwork title
 				</span>
 				<p>by <span id="artwork-modal-artist">default artist name (email)</span></p>	
 			</span>
 			<p>
-				<a style="font-size: 18px !important; font-family: Poppins-Regular !important; text-align: right; display: inline-block; width: 100%;" class="js-scroll-trigger-modal" href="#critique-now"><i class="fa fa-pencil" style="position: relative; padding-right: 10px;"></i>critique now</a>
+				<a id="go-to-critiques" style="font-size: 18px !important; font-family: Poppins-Regular !important; text-align: right; display: inline-block; width: 100%;" class="js-scroll-trigger-modal" href=""><i class="fa fa-eye" style="position: relative; padding-right: 10px;"></i>artwork critiques</a>
 			</p>
 			
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -109,167 +122,6 @@
   				<div class="col-8" id="artwork-modal-image"><img src="" style="width: 100%;"></img></div>
   				<div class="col-4" id="artwork-modal-description">default image description</div>
 			</div>
-			
-			<section id="critique-now" style="padding: 0px;">
-				<form class="contact2-form validate-form" id="my-critique-form" method="post" action="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>"">
-						<input type="hidden" name="action" value="submitcritique" />
-						
-						
-						<ul class="row" style="margin-top: 20px;">
-						
-						
-							<!-- composition -->
-							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
-								
-								Composition<br/>
-								<span id="stars-composition" class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="composition-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="composition-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="composition-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="composition-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="composition-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #FFFFFF; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="composition-comments" maxlength="500" style="background-color: #FFFFFF;"></textarea>
-									<span class="focus-input2" data-placeholder="Composition Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- line -->
-							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
-								
-								Line<br/>
-								<span id="stars-line" class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="line-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="line-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="line-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="line-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="line-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #f7f4f4; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="line-comments" maxlength="500" style="background-color: #f7f4f4;"></textarea>
-									<span class="focus-input2" data-placeholder="Line Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- form -->
-							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
-								
-								Form<br/>
-								<span id="stars-line" class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="form-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="form-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="form-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="form-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="form-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #FFFFFF; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="form-comments" maxlength="500" style="background-color: #FFFFFF;"></textarea>
-									<span class="focus-input2" data-placeholder="Form Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- color -->
-							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
-								
-								Color<br/>
-								<span id="stars-color" class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="color-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="color-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="color-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="color-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="color-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #f7f4f4; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="color-comments" maxlength="500" style="background-color: #f7f4f4;"></textarea>
-									<span class="focus-input2" data-placeholder="Color Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- craft -->
-							<li class="col-md-4" style="background-color: #FFFFFF; padding-top: 10px;">
-								
-								Craft/Technique<br/>
-								<span id="stars-craft" class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="craft-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="craft-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="craft-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="craft-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="craft-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #FFFFFF; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="craft-comments" maxlength="500" style="background-color: #FFFFFF;"></textarea>
-									<span class="focus-input2" data-placeholder="Craft/Technique Comments"></span>
-								</div>
-							</li>
-							
-							
-							<!-- successfulness -->
-							<li class="col-md-4" style="background-color: #f7f4f4; padding-top: 10px;">
-								
-								Overall Successfulness<br/>
-								<span id="stars-successfulness" class="user-rating" style="padding-top: 5px;">
-									<input type="radio" name="successfulness-rating" value="5"><span class="star"></span>
-								    <input type="radio" name="successfulness-rating" value="4"><span class="star"></span>
-								    <input type="radio" name="successfulness-rating" value="3"><span class="star"></span>	
-								    <input type="radio" name="successfulness-rating" value="2"><span class="star"></span>
-								    <input type="radio" name="successfulness-rating" value="1"><span class="star"></span>
-								</span>
-								
-							</li>
-							<li class="col-md-8" style="background-color: #f7f4f4; padding-top: 38px;">
-								<div class="wrap-input2 validate-input" data-validate = "Message is required" style="top: -10px;">
-									<textarea class="input2" name="successfulness-comments" maxlength="500" style="background-color: #f7f4f4;"></textarea>
-									<span class="focus-input2" data-placeholder="Overall Comments"></span>
-								</div>
-							</li>
-						
-						</ul>
-						
-						
-						
-						
-						
-						<p class="my-login-error" id="critique-error" style="margin-top: 20px; margin-bottom: 20px;"></p>
-						<div class="container-contact2-form-btn">
-							<div class="wrap-contact2-form-btn" style="margin-top: 20px; margin-bottom: 20px;">
-								<div class="contact2-form-bgbtn"></div>
-								<button type="submit" class="contact2-form-btn" id="my-critique-submit-button">SUBMIT MY CRITIQUE</button>
-							</div>
-						</div>
-					</form>
-					<p id="submit-message"></p>
-				</section>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
