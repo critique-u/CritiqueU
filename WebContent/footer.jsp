@@ -89,6 +89,24 @@
   		$('#artwork-modal').modal('show');
     };
     
+    function createModal1(artist, title, imageUrl, imageDescription, contextPath)
+    {
+    	console.log("using simpler createModal1 function");
+    	
+    	//set the inner HTML on each particular div/span id
+    	$('#artwork-modal-title').html(title);
+    	$('#artwork-modal-artist').html(artist);
+    	$('#artwork-modal-image').html("<img src='" + imageUrl + "' style='width: 100%;'></img>");
+    	$('#artwork-modal-description').html(imageDescription);
+    	$('#go-to-critiques').attr("href", '${pageContext.request.contextPath}/Controller?action=image&title=' + title + '&artist=' + artist);
+    	
+    	//display the modal
+  		$('#artwork-modal').modal('show');
+    };
+    
+    
+    //<a href='${pageContext.request.contextPath}/Controller?action=image&title=" + title + "&artist=" + artistEmail + "'>
+    
     function clearCritique()
     {
     	console.log("inside clearCritique function");
@@ -104,6 +122,8 @@
     	console.log("after: " + $('[name="composition-rating"]:checked').val());
     	
     	$('.input2').val("");
+    	
+    	$('#submit-message').html("");
     }
 	
 	
@@ -122,6 +142,7 @@
          
         //declare a global to track index. This will be incremented after each server request 
         var index = 8;
+        var browseIndex = 9;
         
         $( "#my-critique-submit-button" ).click(function( event ) {
         	 
@@ -175,7 +196,20 @@
         	  posting.done(function( data ) {
         	    //var content = $( data ).find( "#content" );
         	    //$( "#result" ).empty().append( content );
+        	    //console.log(data);
+        	    //window.location.replace("${pageContext.request.contextPath}/Controller?action=image&title=" + title + "&artist=" + artistEmail);
         	    console.log(data);
+        	    if(data == "success")
+       	    	{
+        	    	$("#submit-message").html("<div class='alert alert-success alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong> Critique submitted. </div><div style='margin: auto; text-align: center;'><a href='${pageContext.request.contextPath}/Controller?action=image&title=" + title + "&artist=" + artistEmail + "'><i class='fa fa-eye' style='position: relative; padding-right: 10px; padding-left: 20px;'></i>view all critiques for this artwork</a></div>");
+     	    		//$("#my-critique-form").html("");
+       	    	}
+        	    else
+       	    	{
+        	    	$("#submit-message").html("<div class='alert alert-danger alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Error!</strong> An error has occured in submitting your critique. </div><div style='margin: auto; text-align: center;'><a href='${pageContext.request.contextPath}/Controller?action=image&title=" + title + "&artist=" + artistEmail + "'><i class='fa fa-eye' style='position: relative; padding-right: 10px; padding-left: 20px;'></i>view all critiques for this artwork</a></div>");
+         	    		//$("#my-critique-form").html("");
+       	    	}
+        	    
         	  });
         });
       	
@@ -186,6 +220,78 @@
        		console.log("ajax test.");
        		var url = '${pageContext.request.contextPath}' + "/Controller";
        		var params = "?action=more&index="+index;
+       		$.get(url+params, function(responseText, status)
+      		{   
+       			console.log(responseText);
+       			// Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+       			var imagesObject = JSON.parse(responseText);
+       			
+       			//console.log(imagesObject[0].title);
+       			console.log(imagesObject[8] === undefined);
+       			console.log(imagesObject[2] === undefined);
+       			
+       			for(image in imagesObject)
+    			{
+    				//console.log(imagesObject[image].title);
+    				
+    				var urlString = "https://s3.us-east-2.amazonaws.com/critique-u/" + imagesObject[image].email + "/" + imagesObject[image].url;
+    				
+    				//console.log(urlString);
+    				
+    				var htmlString = '<li class="col-md-4" style="margin-bottom: 20px;">' +
+					'<div class="container-artwork">' +
+					  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email.toString() + '/' + imagesObject[image].title.toString() + '"/>' +
+					  	'<div class="middle-artwork">' +
+							'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1(' + imagesObject[image].email.toString() + ', ' + urlString.toString() + ', ' + imagesObject[image].description.toString() + '">' +
+					  			'<span class="btn-icon">' +
+									'<i class="fa fa-search fa-stack-1x fa-inverse"></i>' +
+								'</span>' +
+							'</button>' +
+					  '</div>' +
+					'</div>' +
+					'<p>' +
+						imagesObject[image].title.toString() +
+					'</p>' +
+				'</li>';
+    				
+    				$("#artwork-grid-container").append(
+    						'<li class="col-md-4" style="margin-bottom: 20px;">' +
+    							'<div class="container-artwork">' +
+    							  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email + '/' + imagesObject[image].url + '"/>' +
+    							  	'<div class="middle-artwork">' +
+    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
+    									'<span class="btn-icon">' +
+    									'<i class="fa fa-search fa-stack-1x fa-inverse"></i>' +
+    								'</span>' +
+    									'</button>' +
+    							  '</div>' +
+    							'</div>' +
+    							'<p>' +
+    								imagesObject[image].title.toString() +
+    							'</p>' +
+    						'</li>');
+
+    			}
+                //$("#somediv").append(responseText + " " + status); // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                if(status == 'success')
+               	{
+                	index += 9;
+               	}
+                //if the last element in the returned json is not defined, then we're at the end of the artwork list
+                if(imagesObject[8] === undefined)
+               	{
+                	//change the "load more" div to disappear or read "that's it", etc.
+               		$("#somediv").html('<a id="somebutton">-- that\'s it --</a>');
+               	}
+            });
+       	});
+       		
+      //ajax test on button click
+       	$('#load-more-browse-button').click(function()
+       	{
+       		console.log("ajax browse test.");
+       		var url = '${pageContext.request.contextPath}' + "/Controller";
+       		var params = "?action=browsemore&index="+browseIndex;
        		$.get(url+params, function(responseText, status)
       		{   
        			console.log(responseText);
@@ -229,7 +335,7 @@
     							  '</div>' +
     							'</div>' +
     							'<p>' +
-    								imagesObject[image].title.toString() +
+    								imagesObject[image].title.toString() + " by " + imagesObject[image].email.toString() + 
     							'</p>' +
     						'</li>');
 
@@ -246,7 +352,11 @@
                		$("#somediv").html('<a id="somebutton">-- that\'s it --</a>');
                	}
             });
-       	});
+       	});	
+       		
+       		
+       		
+       		
     });
     </script>
 

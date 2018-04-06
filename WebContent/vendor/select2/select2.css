@@ -579,3 +579,9 @@
     font-weight: bold;
     font-size: 3em;
 }
+
+.btn-icon {
+    position: absolute;
+    top: 9px;
+    left: 15px;
+}
