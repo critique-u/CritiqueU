@@ -6,7 +6,7 @@
 </c:if>
 
 <c:import url="header.jsp">
-<c:param name="title" value="Critique U - My Art"></c:param>
+<c:param name="title" value="Critique U - Critique View"></c:param>
 <c:param name="bodyid" value=""></c:param>
 </c:import>
 <c:import url="navbar2.jsp"></c:import>

@@ -6,13 +6,13 @@
 </c:if>
 
 <c:import url="header.jsp">
-<c:param name="title" value="Critique U - My Art"></c:param>
+<c:param name="title" value="Critique U - Browse Artwork"></c:param>
 <c:param name="bodyid" value=""></c:param>
 </c:import>
 <c:import url="navbar2.jsp"></c:import>
 
 <sql:setDataSource var="ds" dataSource="jdbc/critiqueudb" />
-<sql:query dataSource="${ds}" sql="select * from artwork where email='${sessionScope.email}' order by datetime desc limit 8;" var="results" />
+<sql:query dataSource="${ds}" sql="select * from artwork order by datetime desc limit 9;" var="results" />
 
 	<div class="bg-contact2" style="background-image: url('${pageContext.request.contextPath}/images/bg-02.jpg');">
 		<div class="container-contact2" style="padding-top: 100px;">
@@ -29,16 +29,12 @@
 							<p>Session Object variable: <%= mySession.getAttribute("email") %></p><br/>
 						 -->
 						
-					<div class='alert alert-info alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p><strong>Welcome to your CritiqueU <i>My Art</i> dashboard!</strong></p><p>Upload new artwork and review your portfolio here.</p></div>
-					
-					
+						
+					<div class='alert alert-info alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p><strong>Welcome to CritiqueU <i>Browse</i>.</strong></p><p>Explore and critique artwork posted by your peers!</p></div>
+						
+						
 					<ul class="row" id="artwork-grid-container">
-						<!-- Display 'upload image' box first in the grid -->
-						<li class="col-md-4" style="margin-bottom: 20px;">
-							<div class="grid-dashboard cover" style="background-color: #e6e6e6; display: table-cell; vertical-align: middle">
-								upload new artwork
-							</div>
-						</li>
+						
 						
 						
 						
@@ -49,11 +45,11 @@
 							<li class="col-md-4" style="margin-bottom: 20px;">
 									
 								<div class="container-artwork">
-								  <img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}" />
+								  <img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/${image.email}/${imageName}" />
 								  <div class="middle-artwork">
 
 								    
-										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
+										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${image.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
 								  			<span class="btn-icon">
 										                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
 										        </span>
@@ -65,7 +61,7 @@
 								
 								
 								<p>
-									${image.title}
+									<strong>${image.title}</strong><br/>${image.email}
 								</p>
 							</li>
 																
@@ -78,7 +74,7 @@
 				</span>
 				
 				<div id="somediv" style="display: block; text-align: center;">
-					<a href="javascript:void(0);" id="load-more-button">load more...</a>
+					<a href="javascript:void(0);" id="load-more-browse-button">load more...</a>
 				</div>
 				
 			</div>
@@ -279,4 +275,15 @@
 	</div>
 										
 	
-<c:import url="footer.jsp"></c:import>
+<c:import url="footer.jsp"></c:import><%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

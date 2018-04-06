@@ -124,6 +124,7 @@
          
         //declare a global to track index. This will be incremented after each server request 
         var index = 8;
+        var browseIndex = 9;
         
         $( "#my-critique-submit-button" ).click(function( event ) {
         	 
@@ -262,6 +263,78 @@
                	}
             });
        	});
+       		
+      //ajax test on button click
+       	$('#load-more-browse-button').click(function()
+       	{
+       		console.log("ajax browse test.");
+       		var url = '${pageContext.request.contextPath}' + "/Controller";
+       		var params = "?action=browsemore&index="+browseIndex;
+       		$.get(url+params, function(responseText, status)
+      		{   
+       			console.log(responseText);
+       			// Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+       			var imagesObject = JSON.parse(responseText);
+       			
+       			//console.log(imagesObject[0].title);
+       			console.log(imagesObject[8] === undefined);
+       			console.log(imagesObject[2] === undefined);
+       			
+       			for(image in imagesObject)
+    			{
+    				//console.log(imagesObject[image].title);
+    				
+    				var urlString = "https://s3.us-east-2.amazonaws.com/critique-u/" + imagesObject[image].email + "/" + imagesObject[image].url;
+    				
+    				//console.log(urlString);
+    				
+    				var htmlString = '<li class="col-md-4" style="margin-bottom: 20px;">' +
+					'<div class="container-artwork">' +
+					  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email.toString() + '/' + imagesObject[image].title.toString() + '"/>' +
+					  	'<div class="middle-artwork">' +
+							'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(' + imagesObject[image].email.toString() + ', ' + urlString.toString() + ', ' + imagesObject[image].description.toString() + '">' +
+					  			'&#x2B67;' +
+							'</button>' +
+					  '</div>' +
+					'</div>' +
+					'<p>' +
+						imagesObject[image].title.toString() +
+					'</p>' +
+				'</li>';
+    				
+    				$("#artwork-grid-container").append(
+    						'<li class="col-md-4" style="margin-bottom: 20px;">' +
+    							'<div class="container-artwork">' +
+    							  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email + '/' + imagesObject[image].url + '"/>' +
+    							  	'<div class="middle-artwork">' +
+    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
+    							  			'&#x2B67;' +
+    									'</button>' +
+    							  '</div>' +
+    							'</div>' +
+    							'<p>' +
+    								imagesObject[image].title.toString() + " by " + imagesObject[image].email.toString() + 
+    							'</p>' +
+    						'</li>');
+
+    			}
+                //$("#somediv").append(responseText + " " + status); // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                if(status == 'success')
+               	{
+                	index += 9;
+               	}
+                //if the last element in the returned json is not defined, then we're at the end of the artwork list
+                if(imagesObject[8] === undefined)
+               	{
+                	//change the "load more" div to disappear or read "that's it", etc.
+               		$("#somediv").html('<a id="somebutton">-- that\'s it --</a>');
+               	}
+            });
+       	});	
+       		
+       		
+       		
+       		
     });
     </script>
 
