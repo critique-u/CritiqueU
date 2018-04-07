@@ -330,7 +330,7 @@
     							  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email + '/' + imagesObject[image].url + '"/>' +
     							  	'<div class="middle-artwork">' +
     									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
-    							  			'&#x2B67;' +
+    							  			'<span class="btn-icon"><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span>' +
     									'</button>' +
     							  '</div>' +
     							'</div>' +
@@ -343,7 +343,7 @@
                 //$("#somediv").append(responseText + " " + status); // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
                 if(status == 'success')
                	{
-                	index += 9;
+                	browseIndex += 9;
                	}
                 //if the last element in the returned json is not defined, then we're at the end of the artwork list
                 if(imagesObject[8] === undefined)

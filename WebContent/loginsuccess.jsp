@@ -29,6 +29,20 @@
 							<p>Session Object variable: <%= mySession.getAttribute("email") %></p><br/>
 						 -->
 						
+					<c:choose>
+						<c:when test="${sessionScope.uploadflag == 'success'}">
+							<div class='alert alert-success alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p><strong>Success!</strong> New artwork has been uploaded to your portfolio.</p></div>
+							<c:set var="uploadflag" value="" scope="session"  />
+						</c:when>
+						<c:when test="${sessionScope.uploadflag == 'failure'}">
+							<div class='alert alert-danger alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p><strong>Error.</strong> There was a problem uploading your artwork.</p></div>
+							<c:set var="uploadflag" value="" scope="session"  />
+						</c:when>
+					</c:choose>
+						
+						
+						
+						
 					<div class='alert alert-info alert-dismissible'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p>Welcome to your CritiqueU <strong><i>My Art</i></strong> dashboard.</p><p>Upload new artwork and review your portfolio here.</p></div>
 					
 					
@@ -41,7 +55,7 @@
 								<div class="middle-artwork">
 
 							    
-									<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
+									<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" data-toggle="modal" data-target="#upload-modal" >
 							  			<span class="btn-icon">
 									                <i class="fa fa-upload fa-stack-1x fa-inverse"></i>
 									        </span>
@@ -121,6 +135,90 @@
 	        <div class="row">
   				<div class="col-8" id="artwork-modal-image"><img src="" style="width: 100%;"></img></div>
   				<div class="col-4" id="artwork-modal-description">default image description</div>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- upload image modal -->
+	<div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <span class="contact2-form-title" style="text-align: left; padding-bottom: 10px !important; font-size: 24px !important; font-family: Poppins-Regular !important; width: 72%;">
+				<span id="artwork-modal-title">
+					Upload new artwork
+				</span>	
+			</span>
+			
+			
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+  				<div class="col-12" id="artwork-modal-image">
+	  				<form class="contact2-form validate-form" id="my-critique-form" method="post" enctype="multipart/form-data" action="<%= response.encodeUrl(request.getContextPath() + "/Controller") %>"">
+							<input type="hidden" name="action" value="uploadimage" />
+							
+							
+							<ul class="row">
+								<li class="col-md-12" style="padding-top: 30px;">
+									<input type="file" name="image-to-upload" accept="image/*">
+								</li>
+								
+								<li class="col-md-12" style="padding-top: 30px;">
+									<div class="wrap-input2 validate-input" data-validate="Valid email is required">
+										<input class="input2" type="text" name="title"/>
+										<span class="focus-input2" data-placeholder="ARTWORK TITLE"></span>
+									</div>
+								</li>
+								
+								<li class="col-md-12">
+									<div class="wrap-input2 validate-input" data-validate = "Message is required" style="margin-top: 20px;">
+										<textarea class="input2" name="artwork-description" maxlength="500"></textarea>
+										<span class="focus-input2" data-placeholder="ARTWORK DESCRIPTION"></span>
+									</div>
+								</li>
+							</ul>
+							<div class="container-contact2-form-btn">
+									<div class="wrap-contact2-form-btn">
+										<div class="contact2-form-bgbtn"></div>
+										<button type="submit" class="contact2-form-btn">UPLOAD ARTWORK</button>
+									</div>
+							</div>
+								
+  				
+  				
+  				
+  				
+  				
+  				
+  				
+  				
+  					
+					  
+
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					</form>
+  				</div>
+  				
 			</div>
 	      </div>
 	      <div class="modal-footer">

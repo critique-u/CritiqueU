@@ -1,10 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 
-<c:if test="${sessionScope.email == null}">
-    <jsp:forward page="/home.jsp" />
-</c:if>
-
 <c:import url="header.jsp">
 <c:param name="title" value="Critique U - Critique View"></c:param>
 <c:param name="bodyid" value=""></c:param>
@@ -55,7 +51,7 @@
 										
 									<div class="container-artwork" style="text-align: left;">
 									  	<span class="contact2-form-title" style="text-align: left; padding-bottom: 10px !important; font-size: 18px !important; font-family: Poppins-Regular !important;">
-											<b style="display: inline-block;">ARTWORK CRITIQUE</b><p style="position: relative; display: inline-block; float: right !important;"><strong>Critique written by ${critique.criticEmail}</strong></p>
+											<b style="display: inline-block;">ARTWORK CRITIQUE</b><p style="position: relative; display: inline-block; float: right !important;"><strong>critique written by ${critique.criticEmail}</strong></p>
 											<p>Artwork: <i>${critique.title}</i></p>
 											<p>Artist: <i>${critique.email}</i></p>
 											
