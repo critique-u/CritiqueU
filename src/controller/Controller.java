@@ -1,11 +1,16 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,11 +18,13 @@ import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 import org.json.JSONException;
@@ -29,12 +36,23 @@ import database.Account;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
-import java.util.List;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 
+import java.util.List;
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectResult;
+
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * Servlet implementation class Controller
  */
+@MultipartConfig
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -559,6 +577,132 @@ public class Controller extends HttpServlet {
 				}
 			}
 		}
+		else if(action.equals("uploadimage"))
+		{
+//			//***storage test***
+//			final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+//	        List<Bucket> buckets = s3.listBuckets();
+//	        System.out.println("Your Amazon S3 buckets are:");
+//	        for (Bucket b : buckets) {
+//	            System.out.println("* " + b.getName());
+//	        }
+//			//***storage test***/
+			
+			
+		    String emailTemp = (String) mySession.getAttribute("email");
+	        
+			System.out.println("inside upload image section");
+			System.out.println(request.getParameter("title"));
+			
+			//System.out.println(request.getParameter("image-to-upload"));
+
+			//****** happy coding!
+			//get the file chosen by the user
+			Part filePart = request.getPart("image-to-upload");
+			String fileName = filePart.getSubmittedFileName();
+			
+			if(fileName.endsWith(".jpg") || fileName.endsWith(".png")){
+
+			    InputStream fileInputStream = filePart.getInputStream();
+			    
+			    //String accessKeyId = "YOUR_ACCESS_KEY_ID";
+			    //String secretAccessKey =  "YOUR_SECRET_ACCESS_KEY";
+			    //String region = "YOUR_BUCKET REGION";
+			    String bucketName = "critique-u";
+			    String subdirectory = emailTemp + "/";
+			    
+			    //AWS Access Key ID and Secret Access Key
+			    //BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
+			   
+			    //This class connects to AWS S3 for us
+			    //AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
+			    		//.withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+			    @SuppressWarnings("deprecation")
+				AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
+			    
+			    //Specify the file's size
+			    ObjectMetadata metadata = new ObjectMetadata();
+			    metadata.setContentLength(filePart.getSize());
+
+			    //Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
+			    PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, subdirectory + fileName, fileInputStream, metadata);
+			    //Make it public so we can use it as a public URL on the internet
+			    uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+			    
+			    //Upload the file. This can take a while for big files!
+			    s3client.putObject(uploadRequest);
+
+			    
+				//Create a URL using the bucket, subdirectory, and file name
+				//String fileUrl = "http://s3.amazonaws.com/" + bucketName + "/" + subdirectory + "/" + fileName;			
+				
+				//get other data from the form to submit to the database
+				String title = request.getParameter("title");
+				String description = request.getParameter("artwork-description");
+				String stem = FilenameUtils.removeExtension(fileName);
+				String extension = FilenameUtils.getExtension(fileName);
+				
+				
+				//System.out.println(title + " " + stem + " " +  extension + " " +  emailTemp + " " +  description);
+				
+				///////////////////////
+				String sql = "INSERT INTO artwork (email, title, description, datetime, work_in_progress, average_successfulness, image_stem, image_extension) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				
+				
+				//This will execute an insert statement, even with nulls. In the future, this could be not allowed, and error message sent back (?)
+				PreparedStatement statement;
+				try {
+					//java.util.Date today = new java.util.Date();
+					//String now = new java.sql.Date(today.getTime()).toString();
+					
+					DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					java.util.Date date = new java.util.Date();
+					
+					String now = dateFormat.format(date);
+					System.out.println(now);
+					
+					statement = conn.prepareStatement(sql);
+					
+					statement.setString(1, emailTemp);
+					statement.setString(2, title);
+					statement.setString(3, description);
+					statement.setString(4, now);
+					statement.setBoolean(5, false); //work in progress (should operate off of a checkbox in upload form)
+					statement.setFloat(6, 0.0f);
+					statement.setString(7, stem);
+					statement.setString(8, extension);
+					
+					//the result of a SQL query gets returned to ResultSet type object
+					statement.executeUpdate();
+					
+					statement.close();
+					
+					//set a flag to allow an alert to be displayed that the image was successfully uploaded
+					mySession.setAttribute("uploadflag", "success");
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					mySession.setAttribute("uploadflag", "failure");
+				} finally {
+					request.getRequestDispatcher("/loginsuccess.jsp").forward(request, response);
+				}
+				
+				
+				
+				
+				//response.getOutputStream().println("<p>Thanks " + name + "! Here's the image you uploaded:</p>");
+				//response.getOutputStream().println("<img src=\"" + fileUrl + "\" />");
+				//response.getOutputStream().println("<p>Upload another image <a href=\"http://localhost:8080/index.html\">here</a>.</p>");	
+			}
+			else{
+				//the file was not a JPG or PNG
+				response.getOutputStream().println("<p>Please only upload JPG or PNG files.</p>");
+				response.getOutputStream().println("<p>Upload another file <a href=\"http://localhost:8080/index.html\">here</a>.</p>");	
+			}
+			
+		}
 		else if(action.equals("submitcritique"))
 		{
 			response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
@@ -608,6 +752,11 @@ public class Controller extends HttpServlet {
 		//This will execute an insert statement, even with nulls. In the future, this could be not allowed, and error message sent back (?)
 		PreparedStatement statement;
 		try {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			java.util.Date date = new java.util.Date();
+			
+			String now = dateFormat.format(date);
+			
 			statement = conn.prepareStatement(sql);
 			
 			statement.setString(1, artistEmail);
@@ -625,7 +774,7 @@ public class Controller extends HttpServlet {
 			statement.setString(13, craftComments);
 			statement.setString(14, successfulnessRating);
 			statement.setString(15, successfulnessComments);
-			statement.setString(16, "NOW()");
+			statement.setString(16, now);
 			
 			//the result of a SQL query gets returned to ResultSet type object
 			statement.executeUpdate();

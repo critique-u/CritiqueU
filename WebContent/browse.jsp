@@ -51,8 +51,8 @@
 								    
 										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${image.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
 								  			<span class="btn-icon">
-										                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-										        </span>
+								                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+									        </span>
 										</button>
 																	    
 								  </div>

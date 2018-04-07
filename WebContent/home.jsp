@@ -52,7 +52,7 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">About</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h3 class="section-subheading text-muted">An educational and easy-to-use tool to help students become better artists.<br/>Interact with artwork online by rating criteria, providing constructive feedback, and participating in productive discussions.</h3>
           </div>
         </div>
         <div class="row text-center">
@@ -62,7 +62,7 @@
               <i class="fa fa-search fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Browse</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <p class="text-muted">Browse through a timeline of work uploaded by your peers. You may view individual works and critique based on a variety of categories.</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -70,7 +70,7 @@
               <i class="fa fa-upload fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Upload</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <p class="text-muted">Upload your artwork, finished or not, and form an online portfolio available to showcase for the world! Other artists will be able to critique your work, allowing you to gain feedback and better yourself as an artist.</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -78,7 +78,7 @@
               <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Critique</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <p class="text-muted">Critique other artists' works with just a few clicks! Critiques are based on a variety of categories such as composition, form, texture, line, and color.</p>
           </div>
         </div>
       </div>
