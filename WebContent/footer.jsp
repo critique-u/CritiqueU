@@ -73,7 +73,7 @@
 	  		$('#artwork-modal').modal('show');	
     };
     
-    function createModal2(artist, title, imageUrl, imageDescription, contextPath)
+    function createModal2(artist, title, imageUrl, imageDescription, contextPath, wip)
     {
     	console.log("using simpler createModal2 function");
     	
@@ -83,13 +83,24 @@
     	$('#artwork-modal-image').html("<img src='" + imageUrl + "' style='width: 100%;'></img>");
     	$('#artwork-modal-description').html(imageDescription);
     	
+    	console.log("wip: " + wip);
+    	
+    	if(wip == "false")
+   		{
+    		$('#wip').html("");
+   		}
+    	else
+   		{
+    		$('#wip').html('<p><span style="color: #ffffff; background-color: #d51111; font-size: 14px !important; font-family: Poppins-Regular !important; text-align: center; display: inline-block; width: 100%;" class="js-scroll-trigger-modal"><i class="fa fa-paint-brush" style="position: relative; padding-right: 10px;"></i>WORK IN PROGRESS</span></p>');
+   		}  
+    	
     	clearCritique();
     	
     	//display the modal
   		$('#artwork-modal').modal('show');
     };
     
-    function createModal1(artist, title, imageUrl, imageDescription, contextPath)
+    function createModal1(artist, title, imageUrl, imageDescription, contextPath, wip)
     {
     	console.log("using simpler createModal1 function");
     	
@@ -99,6 +110,17 @@
     	$('#artwork-modal-image').html("<img src='" + imageUrl + "' style='width: 100%;'></img>");
     	$('#artwork-modal-description').html(imageDescription);
     	$('#go-to-critiques').attr("href", '${pageContext.request.contextPath}/Controller?action=image&title=' + title + '&artist=' + artist);
+    	
+		console.log("wip: " + wip);
+    	
+    	if(wip == "false")
+   		{
+    		$('#wip').html("");
+   		}
+    	else
+   		{
+    		$('#wip').html('<p><span style="color: #ffffff; background-color: #d51111; font-size: 14px !important; font-family: Poppins-Regular !important; text-align: center; display: inline-block; width: 100%;" class="js-scroll-trigger-modal"><i class="fa fa-paint-brush" style="position: relative; padding-right: 10px;"></i>WORK IN PROGRESS</span></p>');
+   		}  
     	
     	//display the modal
   		$('#artwork-modal').modal('show');
@@ -259,7 +281,7 @@
     							'<div class="container-artwork">' +
     							  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email + '/' + imagesObject[image].url + '"/>' +
     							  	'<div class="middle-artwork">' +
-    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
+    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;, &apos;' + imagesObject[image].wip + '&apos;)">' +
     									'<span class="btn-icon">' +
     									'<i class="fa fa-search fa-stack-1x fa-inverse"></i>' +
     								'</span>' +
@@ -329,7 +351,7 @@
     							'<div class="container-artwork">' +
     							  '<img class="grid-dashboard cover image-artwork" src="https://s3.us-east-2.amazonaws.com/critique-u/' + imagesObject[image].email + '/' + imagesObject[image].url + '"/>' +
     							  	'<div class="middle-artwork">' +
-    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;)">' +
+    									'<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal2(&apos;' + imagesObject[image].email + '&apos;, &apos;' + imagesObject[image].title + '&apos;, &apos;' + urlString + '&apos;, &apos;' + imagesObject[image].description + '&apos;, &apos;' + imagesObject[image].contextPath + '&apos;, &apos;' + imagesObject[image].wip + '&apos;)">' +
     							  			'<span class="btn-icon"><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span>' +
     									'</button>' +
     							  '</div>' +
