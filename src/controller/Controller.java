@@ -185,6 +185,7 @@ public class Controller extends HttpServlet {
 					innerObj.put("title", rs.getString("title"));
 					innerObj.put("description", rs.getString("description"));
 					innerObj.put("contextPath", contextPath);
+					innerObj.put("wip", rs.getBoolean("work_in_progress"));
 					String url = rs.getString("image_stem") + "." + rs.getString("image_extension");
 					innerObj.put("url", url);
 					//System.out.println(rs.getString("title"));
@@ -272,6 +273,7 @@ public class Controller extends HttpServlet {
 					innerObj.put("title", rs.getString("title"));
 					innerObj.put("description", rs.getString("description"));
 					innerObj.put("contextPath", contextPath);
+					innerObj.put("wip", rs.getBoolean("work_in_progress"));
 					String url = rs.getString("image_stem") + "." + rs.getString("image_extension");
 					innerObj.put("url", url);
 					//System.out.println(rs.getString("title"));
@@ -639,8 +641,19 @@ public class Controller extends HttpServlet {
 				//get other data from the form to submit to the database
 				String title = request.getParameter("title");
 				String description = request.getParameter("artwork-description");
+				String workInProgressString = request.getParameter("work-in-progress");
 				String stem = FilenameUtils.removeExtension(fileName);
 				String extension = FilenameUtils.getExtension(fileName);
+				
+				boolean workInProgress = false;
+				if(workInProgressString != null)
+				{
+					if(workInProgressString.equals("on"))
+					{
+						workInProgress = true;
+					}
+				}
+				
 				
 				
 				//System.out.println(title + " " + stem + " " +  extension + " " +  emailTemp + " " +  description);
@@ -667,7 +680,7 @@ public class Controller extends HttpServlet {
 					statement.setString(2, title);
 					statement.setString(3, description);
 					statement.setString(4, now);
-					statement.setBoolean(5, false); //work in progress (should operate off of a checkbox in upload form)
+					statement.setBoolean(5, workInProgress); //work in progress (should operate off of a checkbox in upload form)
 					statement.setFloat(6, 0.0f);
 					statement.setString(7, stem);
 					statement.setString(8, extension);

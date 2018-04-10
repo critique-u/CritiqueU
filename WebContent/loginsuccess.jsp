@@ -80,7 +80,7 @@
 								  <div class="middle-artwork">
 
 								    
-										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}')">
+										<button type="button" id="mymodal" class="btn btn-primary btn-lg text-artwork" onclick="createModal1('${image.email}', '${image.title}', 'https://s3.us-east-2.amazonaws.com/critique-u/${sessionScope.email}/${imageName}', '${image.description}', '${pageContext.request.contextPath}', '${image.work_in_progress}')">
 								  			<span class="btn-icon">
 										                <i class="fa fa-search fa-stack-1x fa-inverse"></i>
 									        </span>
@@ -134,7 +134,14 @@
 	      <div class="modal-body">
 	        <div class="row">
   				<div class="col-8" id="artwork-modal-image"><img src="" style="width: 100%;"></img></div>
-  				<div class="col-4" id="artwork-modal-description">default image description</div>
+  				<div class="col-4">
+  					<div id="wip">
+  						<p>
+							<span style="color: #ffffff; background-color: #cf4d20; font-size: 14px !important; font-family: Poppins-Regular !important; text-align: center; display: inline-block; width: 100%;" class="js-scroll-trigger-modal"><i class="fa fa-paint-brush" style="position: relative; padding-right: 10px;"></i>WORK IN PROGRESS</span>
+						</p>
+  					</div>
+  					<div id="artwork-modal-description">default image description</div>
+  				</div>
 			</div>
 	      </div>
 	      <div class="modal-footer">
@@ -183,6 +190,11 @@
 									<div class="wrap-input2 validate-input" data-validate = "Message is required" style="margin-top: 20px;">
 										<textarea class="input2" name="artwork-description" maxlength="500"></textarea>
 										<span class="focus-input2" data-placeholder="ARTWORK DESCRIPTION"></span>
+									</div>
+								</li>
+								<li class="col-md-12">
+									<div style="margin-top: 5px;">
+										<input type="checkbox" name="work-in-progress"><span style="margin-left: 5px; font-size: small; opacity: .7;">WORK IN PROGRESS</span>
 									</div>
 								</li>
 							</ul>
